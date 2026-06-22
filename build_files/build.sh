@@ -53,7 +53,8 @@ dnf5 -y copr disable \
 dnf5 -y copr enable \
 	codifryed/CoolerControl
 dnf5 -y install \
-	coolercontrol
+	coolercontrol \
+	coolercontrold
 dnf5 -y copr disable \
 	codifryed/CoolerControl
 
