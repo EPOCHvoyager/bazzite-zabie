@@ -22,12 +22,11 @@ dnf5 -y install \
 	langpacks-pt_BR
 
 
-## Packages from Terra
+## Package from Terra
 
 dnf5 -y install \
 	--enable-repo="terra" \
-	bpftune \
-	coolercontrol
+	bpftune
 
 
 ## Packages from Copr
@@ -47,6 +46,14 @@ dnf5 -y install \
 	kwin-effects-better-blur-dx
 dnf5 -y copr disable \
 	infinality/kwin-effects-better-blur-dx
+
+# Pull from the official Copr, as Terra is often out of date
+dnf5 -y copr enable \
+	codifryed/CoolerControl
+dnf5 -y install \
+	coolercontrol
+dnf5 -y copr disable \
+	codifryed/CoolerControl
 
 
 ## Plasma customizations pulled from Open Build Service.
