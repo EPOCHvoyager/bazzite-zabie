@@ -73,7 +73,7 @@ dnf5 config-manager addrepo \
 dnf5 -y install \
 	mullvad-vpn
 dnf5 config-manager disable \
-	mullvad
+	mullvad-stable
 
 # Use a COPR Example:
 #
