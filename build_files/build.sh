@@ -34,7 +34,7 @@ dnf5 -y install \
 
 dnf5 -y install \
 	--enable-repo="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons" \
-	--allow-erasing \
+	--allowerasing \
 	ananicy-cpp \
 	scx-scheds-git \
 	scx-tools-git
