@@ -18,7 +18,9 @@ RELEASE="$(rpm -E '%fedora')"
 
 dnf5 -y install \
 	irqbalance \
-	realtime-setup \
+	realtime-setup
+dnf5 -y install \
+	--setopt=install_weak_deps=True \
 	langpacks-pt_BR
 
 
