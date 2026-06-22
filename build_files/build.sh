@@ -32,14 +32,15 @@ dnf5 -y install \
 ## Packages from Copr
 
 dnf5 -y install \
+	https://download.copr.fedorainfracloud.org/results/bieszczaders/kernel-cachyos-addons/fedora-43-x86_64/10428026-ananicy-cpp/ananicy-cpp-1.2.0-1.fc43.x86_64.rpm
+# TODO: Remove once there's a new successfull build on Copr
+dnf5 -y install \
 	--enable-repo="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons" \
 	--allowerasing \
 	scx-scheds-git \
-	scx-tools-git
+	scx-tools-git \
+	cachyos-ananicy-rules
 	#ananicy-cpp
-dnf5 -y install \
-	https://download.copr.fedorainfracloud.org/results/bieszczaders/kernel-cachyos-addons/fedora-43-x86_64/10428026-ananicy-cpp/ananicy-cpp-1.2.0-1.fc43.x86_64.rpm
-# TODO: Remove once there's a new successfull build on Copr
 
 # This package needs to be rebuilt for specific versions of Plasma.
 dnf5 -y copr enable \
