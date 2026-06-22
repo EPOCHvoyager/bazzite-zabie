@@ -26,7 +26,6 @@ dnf5 -y install \
 
 dnf5 -y install \
 	--enable-repo="terra" \
-	--best \
 	bpftune \
 	coolercontrol
 
