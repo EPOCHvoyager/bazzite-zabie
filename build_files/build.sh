@@ -37,7 +37,7 @@ dnf5 -y install \
 	--allow-erasing \
 	ananicy-cpp \
 	scx-scheds-git \
-	scx-tools-git \
+	scx-tools-git
 
 # This package needs to be rebuilt for specific versions of Plasma.
 dnf5 -y copr enable \
