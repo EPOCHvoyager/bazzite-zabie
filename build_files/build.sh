@@ -70,7 +70,7 @@ dnf5 config-manager disable \
 
 dnf5 config-manager addrepo \
 	--from-repofile=https://repository.mullvad.net/rpm/stable/mullvad.repo
-dnf5 -y install
+dnf5 -y install \
 	mullvad-vpn
 dnf5 config-manager disable \
 	mullvad
