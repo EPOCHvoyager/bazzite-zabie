@@ -56,14 +56,14 @@ dnf5 -y install \
 	plasma-panel-colorizer \
 	plasma-panel-spacer-extended
 dnf5 config-manager disable \
-	home:luisbocanegra
+	home_luisbocanegra
 
 dnf5 config-manager addrepo \
 	--from-repofile=https://download.opensuse.org/repositories/home:paulmcauley/Fedora_"${RELEASE}"/home:paulmcauley.repo
 dnf5 -y install \
 	klassy
 dnf5 config-manager disable \
-	home:paulmcauley
+	home_paulmcauley
 
 
 ## Mullvad's VPN software
