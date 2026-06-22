@@ -35,12 +35,10 @@ dnf5 -y install \
 
 dnf5 -y install \
 	--enable-repo="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons" \
-	--best \
 	--allowerasing \
 	ananicy-cpp \
 	scx-scheds-git \
 	scx-tools-git
-	# Specify --best to pull the newest package for old builds on deprecated chroots
 
 # This package needs to be rebuilt for specific versions of Plasma.
 dnf5 -y copr enable \
