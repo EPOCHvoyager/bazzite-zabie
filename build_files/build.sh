@@ -95,3 +95,5 @@ systemctl enable ananicy-cpp.service
 
 systemctl enable mullvad-daemon.service
 systemctl enable mullvad-early-boot-blocking.service
+
+systemctl enable pci-latency.service
