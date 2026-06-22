@@ -12,8 +12,68 @@ cp -avf "/ctx/system_files"/. /
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
 
-# this installs a package from fedora repos
-dnf5 install -y tmux
+RELEASE="$(rpm -E '%fedora')"
+
+## Packages from the Fedora repos
+
+dnf5 -y install \
+	irqbalance \
+	realtime-setup \
+	langpacks-pt_BR
+
+
+## Packages from Terra
+
+dnf5 -y install \
+	--enable-repo="terra" \
+	bpftune \
+	coolercontrol
+
+
+## Packages from Copr
+
+dnf5 -y install \
+	--enable-repo="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons" \
+	--allow-erasing \
+	ananicy-cpp \
+	scx-scheds-git \
+	scx-tools-git \
+
+# This package needs to be rebuilt for specific versions of Plasma.
+dnf5 -y copr enable \
+	infinality/kwin-effects-better-blur-dx
+dnf5 -y install \
+	kwin-effects-better-blur-dx
+dnf5 -y copr disable \
+	infinality/kwin-effects-better-blur-dx
+
+
+## Plasma customizations pulled from Open Build Service.
+
+dnf5 config-manager addrepo \
+	--from-repofile=https://download.opensuse.org/repositories/home:luisbocanegra/Fedora_"${RELEASE}"/home:luisbocanegra.repo
+dnf5 -y install \
+	plasma-panel-colorizer \
+	plasma-panel-spacer-extended
+dnf5 config-manager disable \
+	home:luisbocanegra
+
+dnf5 config-manager addrepo \
+	--from-repofile=https://download.opensuse.org/repositories/home:paulmcauley/Fedora_"${RELEASE}"/home:paulmcauley.repo
+dnf5 -y install \
+	klassy
+dnf5 config-manager disable \
+	home:paulmcauley
+
+
+## Mullvad's VPN software
+
+dnf5 config-manager addrepo \
+	--from-repofile=https://repository.mullvad.net/rpm/stable/mullvad.repo
+dnf5 -y install
+	mullvad-vpn
+dnf5 config-manager disable \
+	mullvad
 
 # Use a COPR Example:
 #
@@ -22,6 +82,16 @@ dnf5 install -y tmux
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
 
-#### Example for enabling a System Unit File
+#### Enable service units
 
-systemctl enable podman.socket
+systemctl enable realtime-setup.service
+systemctl enable realtime-entsk.service
+systemctl enable irqbalance.service
+
+systemctl enable bpftune.service
+systemctl enable coolercontrold.service
+
+systemctl enable ananicy-cpp.service
+
+systemctl enable mullvad-daemon.service
+systemctl enable mullvad-early-boot-blocking.service
