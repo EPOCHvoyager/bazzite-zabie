@@ -3,6 +3,8 @@
 set -ouex pipefail
 
 # Copy the contents of system_files/ of the git repo to /
+rm /ctx/system_files/usr/.gitkeep
+rm /ctx/system_files/etc/.gitkeep
 cp -avf "/ctx/system_files"/. /
 
 ### Install packages
