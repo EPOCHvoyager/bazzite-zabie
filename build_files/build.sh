@@ -84,7 +84,7 @@ dnf5 config-manager disable \
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disable ublue-os/staging
 
-#### Enable service units
+### Enable service units
 
 systemctl enable realtime-setup.service
 systemctl enable realtime-entsk.service
