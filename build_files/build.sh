@@ -94,6 +94,8 @@ dnf5 config-manager disable \
 
 ### Enable service units
 
+systemctl enable pci-latency.service
+
 systemctl enable realtime-setup.service
 systemctl enable realtime-entsk.service
 systemctl enable irqbalance.service
@@ -105,5 +107,3 @@ systemctl enable ananicy-cpp.service
 
 systemctl enable mullvad-daemon.service
 systemctl enable mullvad-early-boot-blocking.service
-
-systemctl enable pci-latency.service
