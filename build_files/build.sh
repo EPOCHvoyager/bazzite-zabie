@@ -38,11 +38,18 @@ dnf5 -y install \
 # TODO: Remove once there's a new successfull build on Copr
 dnf5 -y install \
 	--enable-repo="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons" \
-	--allowerasing \
-	scx-scheds-git \
-	scx-tools-git \
 	cachyos-ananicy-rules
 	#ananicy-cpp
+
+# Pull from Piotr's Copr instead of addons, as it's more actively maintained
+dnf5 -y copr enable \
+	sirlucjan/scx-scheds-cargo
+dnf5 -y install \
+	--allowerasing \
+	scx-scheds-git \
+	scx-tools-git
+dnf5 -y copr disable \
+	sirlucjan/scx-scheds-cargo
 
 # This package needs to be rebuilt for specific versions of Plasma.
 dnf5 -y copr enable \
