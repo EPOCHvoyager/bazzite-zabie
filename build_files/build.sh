@@ -41,8 +41,8 @@ dnf5 -y copr enable \
 	sirlucjan/scx-scheds-cargo
 dnf5 -y install \
 	--allowerasing \
-	scx-scheds-dev-git \
-	scx-tools-dev-git
+	scx-scheds-git \
+	scx-tools-git
 dnf5 -y copr disable \
 	sirlucjan/scx-scheds-cargo
 
