@@ -13,7 +13,9 @@ RELEASE="$(rpm -E '%fedora')"
 
 dnf5 -y install \
 	irqbalance \
-	realtime-setup
+	realtime-setup \
+	wivrn \
+	opencomposite
 dnf5 -y install \
 	--setopt=install_weak_deps=True \
 	langpacks-pt_BR
