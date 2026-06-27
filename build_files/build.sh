@@ -14,7 +14,7 @@ RELEASE="$(rpm -E '%fedora')"
 dnf5 -y install \
 	irqbalance \
 	realtime-setup \
-	wivrn \
+	wivrn-dashboard \
 	opencomposite
 dnf5 -y install \
 	--setopt=install_weak_deps=True \
