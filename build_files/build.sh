@@ -20,6 +20,24 @@ dnf5 -y install \
 	--setopt=install_weak_deps=True \
 	langpacks-pt_BR
 
+# Download latest xrizer release and extract into /opt for WiVRn
+URL="https://api.github.com/repos/Supreeeme/xrizer/releases/latest"
+
+curl -s $URL \
+| jq -r '.assets[] | select(.name | contains ("xrizer")) | .browser_download_url' \
+| head -n 1 \
+| xargs -I {} wget {} -P /tmp
+
+unzip -j \
+	/tmp/xrizer-*.zip -d /tmp
+mkdir -p \
+	/opt/xrizer/bin
+mv /tmp/vrclient.so /opt/xrizer/bin
+mv /tmp/version.txt /opt/xrizer
+chmod +x \
+	/opt/xrizer/bin/vrclient.so
+rm /tmp/xrizer-*.zip
+
 
 ## Package from Terra
 
