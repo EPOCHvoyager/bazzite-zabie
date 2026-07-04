@@ -25,6 +25,11 @@ echo Adding permissions…
 chmod u+s "/usr/bin/mullvad-exclude"
 
 
+[[ $( stat --format='%a' /usr/bin/mullvad-exclude ) = "4755" ]]
+
+echo Successfully added.
+
+
 echo Enabling service units…
 
 systemctl enable mullvad-daemon.service
