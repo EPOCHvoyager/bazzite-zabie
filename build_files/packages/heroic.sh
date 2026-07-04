@@ -17,6 +17,6 @@ rm /tmp/Heroic-*-x86_64.rpm
 
 
 rpm -V \
-    heroic-games-launcher
+    heroic
 
 echo Successfully installed.
