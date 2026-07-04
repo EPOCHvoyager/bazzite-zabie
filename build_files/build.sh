@@ -12,5 +12,5 @@ systemctl is-enabled pci-latency.service
 PACKAGE_DIR="/ctx/packages"
 
 for f in "${PACKAGE_DIR}"/*.sh; do
-	./"$f" || break
+	sh -c "$f" || break
 done
