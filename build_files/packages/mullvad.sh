@@ -7,7 +7,6 @@ echo Installing Mullvad VPN software…
 dnf5 config-manager addrepo \
 	--from-repofile=https://repository.mullvad.net/rpm/stable/mullvad.repo
 dnf5 -y install \
-	--setopt=rpmverbosity=critical \
 	--setopt=tsflags=noscripts \
 	mullvad-vpn
 dnf5 config-manager disable \
