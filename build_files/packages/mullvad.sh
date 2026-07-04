@@ -19,6 +19,12 @@ rpm -V \
 echo Successfully installed.
 
 
+echo Adding permissions…
+
+# This is normally handled by an install scriptlet.
+chmod u+s "/usr/bin/mullvad-exclude"
+
+
 echo Enabling service units…
 
 systemctl enable mullvad-daemon.service
