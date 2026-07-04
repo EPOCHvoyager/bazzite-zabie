@@ -12,6 +12,9 @@ dnf5 -y install \
 dnf5 config-manager disable \
 	mullvad-stable
 
+# Give executable needed permissions. Normally handled by an install scriptlet.
+chmod u+s "/usr/bin/mullvad-exclude"
+
 
 rpm -V \
     mullvad-vpn
