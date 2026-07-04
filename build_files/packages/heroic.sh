@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set ${CI:+-x} -euo pipefail
+
 URL="https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest"
 
 echo Installing Heroic from latest GitHub release…

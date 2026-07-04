@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set ${CI:+-x} -euo pipefail
+
 echo Installing packages from Copr…
 
 dnf5 -y install \

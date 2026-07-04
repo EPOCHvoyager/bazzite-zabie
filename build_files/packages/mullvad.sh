@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set ${CI:+-x} -euo pipefail
+
 echo Installing Mullvad VPN software…
 
 dnf5 config-manager addrepo \

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set ${CI:+-x} -euo pipefail
+
 echo Installing package from Terra…
 
 dnf5 -y install \

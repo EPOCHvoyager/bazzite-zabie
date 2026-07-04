@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set ${CI:+-x} -euo pipefail
+
 RELEASE="$(rpm -E '%fedora')"
 
 echo Installing packages from Open Build Service…
