@@ -7,7 +7,7 @@ cp -avf "/ctx/system_files"/. /
 
 # Enable local service unit from system_files
 systemctl enable pci-latency.service
-
+systemctl is-enabled pci-latency.service
 
 PACKAGE_DIR="/ctx/packages"
 
