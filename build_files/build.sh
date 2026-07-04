@@ -92,6 +92,19 @@ dnf5 config-manager disable \
 	mullvad-stable
 
 
+## Heroic's latest, directly from GitHub releases
+
+URL="https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases/latest"
+
+curl -s $URL \
+| jq -r '.assets[] | select(.name | contains ("x86_64.rpm")) | .browser_download_url' \
+| head -n 1 \
+| xargs -I {} wget {} -P /tmp
+
+dnf5 -y install \
+	/tmp/Heroic-*-x86_64.rpm
+rm /tmp/Heroic-*-x86_64.rpm
+
 ### Enable service units
 
 systemctl enable pci-latency.service
