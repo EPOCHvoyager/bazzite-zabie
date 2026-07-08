@@ -10,7 +10,8 @@ dnf5 config-manager addrepo \
 	--from-repofile=https://download.opensuse.org/repositories/home:luisbocanegra/Fedora_"${RELEASE}"/home:luisbocanegra.repo
 dnf5 -y install \
 	plasma-panel-colorizer \
-	plasma-panel-spacer-extended
+	plasma-panel-spacer-extended \
+	plasma-wallpaper-effects
 dnf5 config-manager disable \
 	home_luisbocanegra
 
