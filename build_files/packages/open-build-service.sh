@@ -11,7 +11,6 @@ dnf5 config-manager addrepo \
 dnf5 -y install \
 	plasma-panel-colorizer \
 	plasma-panel-spacer-extended \
-	plasma-wallpaper-effects \
 	kde-material-you-colors
 dnf5 config-manager disable \
 	home_luisbocanegra
