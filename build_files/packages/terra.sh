@@ -2,17 +2,15 @@
 
 set ${CI:+-x} -euo pipefail
 
-echo Installing packages from Terra…
+echo Installing package from Terra…
 
 dnf5 -y install \
 	--enable-repo="terra" \
-	bpftune \
-	vicinae
+	bpftune
 
 
 rpm -V \
-	bpftune \
-	vicinae
+	bpftune
 
 echo Successfully installed.
 
