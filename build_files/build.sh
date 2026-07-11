@@ -14,3 +14,6 @@ PACKAGE_DIR="/ctx/packages"
 for f in "${PACKAGE_DIR}"/*.sh; do
 	sh -c "$f" || exit 1
 done
+
+# Disable Krunner in favor of Vicinae
+chmod -x /usr/bin/krunner
