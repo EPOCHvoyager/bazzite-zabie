@@ -26,6 +26,7 @@ dnf5 config-manager disable \
 rpm -V \
 	plasma-panel-colorizer \
 	plasma-panel-spacer-extended \
+	kde-material-you-colors \
 	klassy
 
 echo Successfully installed.
