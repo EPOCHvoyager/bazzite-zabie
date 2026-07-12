@@ -27,3 +27,14 @@ for f in "${PACKAGE_DIR}"/*.sh; do
 done
 
 echo Package installation done.
+
+
+# Disable Krunner in favor of AppGrid
+echo Disabling Krunner…
+
+chmod -x /usr/bin/krunner
+
+
+[[ $( stat --format='%a' /usr/bin/krunner ) = "644" ]]
+
+echo Successfully disabled.
