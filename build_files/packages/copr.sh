@@ -30,22 +30,13 @@ dnf5 -y install \
 dnf5 -y copr disable \
 	codifryed/CoolerControl
 
-# Drop-in replacement for Krunner
-dnf5 -y copr enable \
-	scujas/plasma-applet-appgrid
-dnf5 -y install \
-	plasma-applet-appgrid
-dnf5 -y copr disable \
-	scujas/plasma-applet-appgrid
-
 
 rpm -V \
     ananicy-cpp \
     cachyos-ananicy-rules \
     kwin-effects-better-blur-dx \
     coolercontrol \
-    coolercontrold \
-    plasma-applet-appgrid
+    coolercontrold
 
 echo Successfully installed.
 
