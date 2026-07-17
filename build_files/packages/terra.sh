@@ -2,17 +2,15 @@
 
 set ${CI:+-x} -euo pipefail
 
-echo Installing packages from Terra…
+echo Installing package from Terra…
 
 dnf5 -y install \
 	--enable-repo="terra" \
-	bpftune \
-	plasma6-applet-appgrid
+	bpftune
 
 
 rpm -V \
-	bpftune \
-	plasma6-applet-appgrid
+	bpftune
 
 echo Successfully installed.
 

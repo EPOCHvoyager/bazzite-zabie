@@ -21,6 +21,14 @@ dnf5 -y install \
 dnf5 -y copr disable \
 	infinality/kwin-effects-better-blur-dx
 
+# A Spotlight-like application launcher for Plasma.
+dnf5 -y copr enable \
+	scujas/plasma-applet-appgrid
+dnf5 -y install \
+	plasma-applet-appgrid
+dnf5 -y copr disable \
+	scujas/plasma-applet-appgrid
+
 # Pull from the official Copr, as Terra is often out of date
 dnf5 -y copr enable \
 	codifryed/CoolerControl
@@ -35,6 +43,7 @@ rpm -V \
     ananicy-cpp \
     cachyos-ananicy-rules \
     kwin-effects-better-blur-dx \
+    plasma-applet-appgrid \
     coolercontrol \
     coolercontrold
 
