@@ -33,18 +33,3 @@ rpm -V \
 	heroic
 
 echo Successfully installed.
-
-
-echo Installing Latte Dock NG from latest GitHub release…
-
-REPO="ruizhi-lab/latte-dock-ng"
-_get_rpm_from_release
-
-RPM="latte-dock-ng-*.x86_64.rpm"
-_install_and_clean
-
-
-rpm -V \
-	latte-dock-ng
-
-echo Successfully installed.
