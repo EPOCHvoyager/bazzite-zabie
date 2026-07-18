@@ -18,7 +18,7 @@ _install_and_clean() {
 	dnf5 -y install \
 		"${rpm_file}"
 
-	rm "${rpm_file}"
+	rm "${tmp_dir}"/*.rpm
 }
 
 
