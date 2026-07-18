@@ -3,7 +3,6 @@
 set ${CI:+-x} -euo pipefail
 
 _get_rpm_from_release() {
-
 	local api_url ; api_url="https://api.github.com/repos/${REPO}/releases/latest"
 
 	curl -s "$api_url" \
@@ -12,15 +11,22 @@ _get_rpm_from_release() {
 	| xargs -I {} wget {} -P /tmp
 }
 
+_install_and_clean() {
+	local temp_dir ; temp_dir="/tmp"
+
+	dnf5 -y install \
+		"${temp_dir}"/${RPM}
+	rm "${temp_dir}"/${RPM}
+}
+
+
 echo Installing Heroic from latest GitHub release…
 
 REPO="Heroic-Games-Launcher/HeroicGamesLauncher"
 _get_rpm_from_release
 
 RPM="Heroic-*-x86_64.rpm"
-dnf5 -y install \
-	/tmp/"${RPM}"
-rm /tmp/"${RPM}"
+_install_and_clean
 
 
 rpm -V \
@@ -35,9 +41,7 @@ REPO="ruizhi-lab/latte-dock-ng"
 _get_rpm_from_release
 
 RPM="latte-dock-ng-*.x86_64.rpm"
-dnf5 -y install \
-	/tmp/"${RPM}"
-rm /tmp/"${RPM}"
+_install_and_clean
 
 
 rpm -V \
