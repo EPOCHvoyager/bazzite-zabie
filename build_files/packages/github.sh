@@ -2,7 +2,7 @@
 
 set ${CI:+-x} -euo pipefail
 
-_get_rpm_from_release() {
+_rpm_from_release() {
 	local api_url ; api_url="https://api.github.com/repos/${REPO}/releases/latest"
 
 	curl -s "$api_url" \
@@ -23,7 +23,7 @@ _install_and_clean() {
 echo Installing Heroic from latest GitHub release…
 
 REPO="Heroic-Games-Launcher/HeroicGamesLauncher"
-_get_rpm_from_release
+_rpm_from_release
 
 RPM="Heroic-*-x86_64.rpm"
 _install_and_clean
