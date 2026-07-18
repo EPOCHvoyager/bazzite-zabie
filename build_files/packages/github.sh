@@ -20,7 +20,7 @@ _install_and_clean() {
 
 
 	rpm -v \
-		$( rpm -qp --qf '%{NAME}\n' "${rpm_file}" )
+		"$( rpm -qp --qf '%{NAME}\n' "${rpm_file}" )"
 
 	rm "${rpm_file}"
 }
