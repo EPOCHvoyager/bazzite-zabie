@@ -17,7 +17,7 @@ dnf5 -y install \
 dnf5 -y copr enable \
 	infinality/kwin-effects-better-blur-dx
 dnf5 -y install \
-	kwin-effects-better-blur-dx
+	kwin-effects-better-blur-dx-2.5.1-1.20260708_061726gite8475d0.fc44
 dnf5 -y copr disable \
 	infinality/kwin-effects-better-blur-dx
 
