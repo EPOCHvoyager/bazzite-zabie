@@ -2,6 +2,16 @@
 
 set ${CI:+-x} -euo pipefail
 
+_get_from_copr () {
+	dnf5 -y copr enable \
+		"${COPR}"
+	dnf5 -y install \
+		"${PACKAGES}"
+	dnf5 -y copr disable \
+		"${COPR}"
+}
+
+
 echo Installing packages from Copr…
 
 dnf5 -y install \
@@ -14,29 +24,19 @@ dnf5 -y install \
 	#ananicy-cpp
 
 # This package needs to be rebuilt for specific versions of Plasma.
-dnf5 -y copr enable \
-	infinality/kwin-effects-better-blur-dx
-dnf5 -y install \
-	kwin-effects-better-blur-dx-2.5.1-1.20260708_061726gite8475d0.fc44
-dnf5 -y copr disable \
-	infinality/kwin-effects-better-blur-dx
+COPR="infinality/kwin-effects-better-blur-dx"
+PACKAGES="kwin-effects-better-blur-dx-2.5.1-1.20260708_061726gite8475d0.fc44"
+_get_from_copr
 
 # A Spotlight-like application launcher for Plasma.
-dnf5 -y copr enable \
-	scujas/plasma-applet-appgrid
-dnf5 -y install \
-	plasma-applet-appgrid
-dnf5 -y copr disable \
-	scujas/plasma-applet-appgrid
+COPR="scujas/plasma-applet-appgrid"
+PACKAGES="plasma-applet-appgrid"
+_get_from_copr
 
 # Pull from the official Copr, as Terra is often out of date
-dnf5 -y copr enable \
-	codifryed/CoolerControl
-dnf5 -y install \
-	coolercontrol \
-	coolercontrold
-dnf5 -y copr disable \
-	codifryed/CoolerControl
+COPR="codifryed/CoolerControl"
+PACKAGES="coolercontrol coolercontrold"
+_get_from_copr
 
 
 rpm -V \
