@@ -17,6 +17,11 @@ _install_and_clean() {
 
 	dnf5 -y install \
 		"${rpm_file}"
+
+
+	rpm -v \
+		$( rpm -qp --qf '%{NAME}\n' "${rpm_file}" )
+
 	rm "${rpm_file}"
 }
 
@@ -28,9 +33,5 @@ _rpm_from_release
 
 RPM="Heroic-*-x86_64.rpm"
 _install_and_clean
-
-
-rpm -V \
-	heroic
 
 echo Successfully installed.
