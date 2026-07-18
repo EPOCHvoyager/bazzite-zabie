@@ -9,7 +9,7 @@ _get_from_obs () {
 	dnf5 config-manager addrepo \
 		--from-repofile="${repo_file}"
 	dnf5 -y install \
-		"${PACKAGES}"
+		${PACKAGES}
 	dnf5 config-manager disable \
 		"${REPO//[!0-9a-zA-Z.-]/_}"
 }
