@@ -2,23 +2,24 @@
 
 set ${CI:+-x} -euo pipefail
 
+TMP_DIR="/tmp"
+
 _rpm_from_release() {
 	local api_url ; api_url="https://api.github.com/repos/${REPO}/releases/latest"
 
 	curl -s "$api_url" \
 	| jq -r '.assets[] | select(.name | contains ("x86_64.rpm")) | .browser_download_url' \
 	| head -n 1 \
-	| xargs -I {} wget {} -P /tmp
+	| xargs -I {} wget {} -P "${TMP_DIR}"
 }
 
 _install_and_clean() {
-	local tmp_dir ; tmp_dir="/tmp"
-	local rpm_file ; rpm_file=$( find "${tmp_dir}" -iname "${RPM}" )
+	local rpm_file ; rpm_file=$( find "${TMP_DIR}" -iname "${RPM}" )
 
 	dnf5 -y install \
 		"${rpm_file}"
 
-	rm "${tmp_dir}"/*.rpm
+	rm "${TMP_DIR}"/*.rpm
 }
 
 
