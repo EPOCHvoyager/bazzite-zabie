@@ -12,7 +12,7 @@ _rpm_from_release() {
 }
 
 _install_and_clean() {
-	local temp_dir ; temp_dir="/tmp"
+	local tmp_dir ; tmp_dir="/tmp"
 	local rpm_file ; rpm_file=$( find "${tmp_dir}" -iname "${RPM}" )
 
 	dnf5 -y install \
