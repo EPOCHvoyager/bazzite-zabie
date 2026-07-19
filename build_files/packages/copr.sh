@@ -36,17 +36,8 @@ dnf5 repolist --disabled | grep -q "copr:copr.fedorainfracloud.org:bieszczaders:
 
 # This package needs to be rebuilt for specific versions of Plasma.
 COPR="infinality/kwin-effects-better-blur-dx"
-dnf5 -y copr enable \
-	"${COPR}"
-dnf5 -y install \
-	"kwin-effects-better-blur-dx-2.5.1-1.20260708_061726gite8475d0.fc44"
-dnf5 -y copr disable \
-	"${COPR}"
-
-
-rpm -V \
-	"kwin-effects-better-blur-dx"
-dnf5 repolist --disabled | grep -q "${COPR}"
+PACKAGES=( "kwin-effects-better-blur-dx-2.5.1-1.20260708_061726gite8475d0.fc44" )
+_get_from_copr
 
 # A Spotlight-like application launcher for Plasma
 COPR="scujas/plasma-applet-appgrid"
