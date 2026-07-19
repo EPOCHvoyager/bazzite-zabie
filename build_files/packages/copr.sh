@@ -13,7 +13,7 @@ _get_from_copr () {
 
 	rpm -V \
 		"${PACKAGES[@]}"
-	dnf5 repolist --disabled | grep -q "${REPO}"
+	dnf5 repolist --disabled | grep -q "${COPR}"
 }
 
 
