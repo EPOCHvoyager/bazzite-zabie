@@ -14,6 +14,8 @@ _get_from_obs () {
 		"${REPO//[!0-9a-zA-Z.-]/_}"
 
 
+	rpm -V \
+		"${PACKAGES[@]}"
 	dnf5 repolist --disabled | grep -q "${REPO}"
 }
 
@@ -27,12 +29,5 @@ _get_from_obs
 REPO="home:paulmcauley"
 PACKAGES=( "klassy" )
 _get_from_obs
-
-
-rpm -V \
-	plasma-panel-colorizer \
-	plasma-panel-spacer-extended \
-	kde-material-you-colors \
-	klassy
 
 echo Successfully installed.

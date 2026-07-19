@@ -11,6 +11,8 @@ _get_from_copr () {
 		"${COPR}"
 
 
+	rpm -V \
+		"${PACKAGES[@]}"
 	dnf5 repolist --disabled | grep -q "${REPO}"
 }
 
@@ -26,6 +28,10 @@ dnf5 -y install \
 	cachyos-ananicy-rules
 	#ananicy-cpp
 
+
+rpm -V \
+    ananicy-cpp \
+    cachyos-ananicy-rules
 dnf5 repolist --disabled | grep -q "copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons"
 
 # This package needs to be rebuilt for specific versions of Plasma.
@@ -42,15 +48,6 @@ _get_from_copr
 COPR="codifryed/CoolerControl"
 PACKAGES=( "coolercontrol" "coolercontrold" )
 _get_from_copr
-
-
-rpm -V \
-    ananicy-cpp \
-    cachyos-ananicy-rules \
-    kwin-effects-better-blur-dx \
-    plasma-applet-appgrid \
-    coolercontrol \
-    coolercontrold
 
 echo Successfully installed.
 
