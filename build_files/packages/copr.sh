@@ -28,7 +28,7 @@ COPR="infinality/kwin-effects-better-blur-dx"
 PACKAGES=( "kwin-effects-better-blur-dx-2.5.1-1.20260708_061726gite8475d0.fc44" )
 _get_from_copr
 
-# A Spotlight-like application launcher for Plasma.
+# A Spotlight-like application launcher for Plasma
 COPR="scujas/plasma-applet-appgrid"
 PACKAGES=( "plasma-applet-appgrid" )
 _get_from_copr
