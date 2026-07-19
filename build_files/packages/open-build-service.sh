@@ -9,7 +9,7 @@ _get_from_obs () {
 	dnf5 config-manager addrepo \
 		--from-repofile="${repo_file}"
 	dnf5 -y install \
-		${PACKAGES}
+		"${PACKAGES[@]}"
 	dnf5 config-manager disable \
 		"${REPO//[!0-9a-zA-Z.-]/_}"
 }
@@ -18,11 +18,11 @@ _get_from_obs () {
 echo Installing packages from Open Build Service…
 
 REPO="home:luisbocanegra"
-PACKAGES="plasma-panel-colorizer plasma-panel-spacer-extended kde-material-you-colors"
+PACKAGES=( "plasma-panel-colorizer" "plasma-panel-spacer-extended" "kde-material-you-colors" )
 _get_from_obs
 
 REPO="home:paulmcauley"
-PACKAGES="klassy"
+PACKAGES=( "klassy" )
 _get_from_obs
 
 
