@@ -17,7 +17,7 @@ echo Installing packages from Copr…
 dnf5 -y install \
 	--setopt=tsflags=noscripts \
 	https://download.copr.fedorainfracloud.org/results/bieszczaders/kernel-cachyos-addons/fedora-43-x86_64/10428026-ananicy-cpp/ananicy-cpp-1.2.0-1.fc43.x86_64.rpm
-# TODO: Remove once there's a new successfull build on Copr
+# TODO: Remove once there's a new successful build on Copr
 dnf5 -y install \
 	--enable-repo="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons" \
 	cachyos-ananicy-rules
