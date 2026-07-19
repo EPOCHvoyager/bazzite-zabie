@@ -9,6 +9,9 @@ _get_from_copr () {
 		"${PACKAGES[@]}"
 	dnf5 -y copr disable \
 		"${COPR}"
+
+
+	dnf5 repolist --disabled | grep -q "${REPO}"
 }
 
 
@@ -22,6 +25,8 @@ dnf5 -y install \
 	--enable-repo="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons" \
 	cachyos-ananicy-rules
 	#ananicy-cpp
+
+dnf5 repolist --disabled | grep -q "copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons"
 
 # This package needs to be rebuilt for specific versions of Plasma.
 COPR="infinality/kwin-effects-better-blur-dx"

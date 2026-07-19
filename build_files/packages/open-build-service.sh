@@ -12,6 +12,9 @@ _get_from_obs () {
 		"${PACKAGES[@]}"
 	dnf5 config-manager disable \
 		"${REPO//[!0-9a-zA-Z.-]/_}"
+
+
+	dnf5 repolist --disabled | grep -q "${REPO}"
 }
 
 
