@@ -6,7 +6,7 @@ set ${CI:+-x} -euo pipefail
 cp -avf "/ctx/system_files"/. /
 
 
-# Enable local service unit from system_files
+# Enable local service unit from system_files.
 echo Enabling pci-latency service…
 
 systemctl enable pci-latency.service
@@ -29,7 +29,7 @@ done
 echo Package installation done.
 
 
-# Disable Krunner in favor of AppGrid
+# Disable Krunner in favor of AppGrid.
 echo Disabling Krunner…
 
 chmod -x /usr/bin/krunner
