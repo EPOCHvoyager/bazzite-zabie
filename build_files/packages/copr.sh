@@ -19,6 +19,7 @@ _get_from_copr () {
 
 echo Installing packages from Copr…
 
+# This Copr repository is included in the base image. Thus, enable it ephemerally with --enable-repo, passing the repo ID.
 COPR="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons"
 dnf5 -y install \
 	--setopt=tsflags=noscripts \
