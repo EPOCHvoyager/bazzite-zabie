@@ -17,7 +17,7 @@ systemctl is-enabled pci-latency.service
 echo Successfully enabled.
 
 
-# Run all package installation scripts
+# Run all package installation scripts in set directory.
 echo Installing packages…
 
 PACKAGE_DIR="/ctx/packages"
