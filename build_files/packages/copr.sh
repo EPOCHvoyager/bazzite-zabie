@@ -38,7 +38,7 @@ dnf5 repolist --disabled | grep -q "${COPR}"
 
 # This package needs to be rebuilt for specific versions of Plasma.
 COPR="infinality/kwin-effects-better-blur-dx"
-PACKAGES=( "kwin-effects-better-blur-dx-2.5.1-1.20260708_061726gite8475d0.fc44" )
+PACKAGES=( "kwin-effects-better-blur-dx" )
 _get_from_copr
 
 # A Spotlight-like application launcher for Plasma.
