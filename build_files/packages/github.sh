@@ -35,4 +35,11 @@ _rpm_from_release
 RPM="Heroic-*-x86_64.rpm"
 _install_and_clean
 
+
+REPO="Legcord/Legcord"
+_rpm_from_release
+
+RPM="Legcord-*-linux-x86_64.rpm"
+_install_and_clean
+
 echo Successfully installed.
