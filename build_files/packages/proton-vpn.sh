@@ -23,6 +23,7 @@ EOF
 _install_repo
 
 dnf5 -y install \
+    --setopt=tsflags=noscripts \
     proton-vpn-gnome-desktop
 
 
@@ -30,3 +31,13 @@ rpm -V \
     proton-vpn-gnome-desktop
 
 echo Successfully installed.
+
+
+echo Enabling service units…
+
+systemctl enable me.proton.vpn.split_tunneling.service
+
+
+systemctl is-enabled me.proton.vpn.split_tunneling.service
+
+echo Successfully enabled.
