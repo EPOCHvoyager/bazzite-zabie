@@ -5,7 +5,7 @@ set ${CI:+-x} -euo pipefail
 echo Installing Proton VPN software…
 
 _install_repo() {
-cat > /etc/yum.repos.d/protonvpn-stable.repo << EOF
+cat << "EOF" > /etc/yum.repos.d/protonvpn-stable.repo
 #
 # ProtonVPN stable release
 #
