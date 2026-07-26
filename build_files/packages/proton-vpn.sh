@@ -25,8 +25,6 @@ _install_repo() {
 
 _install_repo
 
-dnf5 check-update --refresh
-
 dnf5 -y install \
     proton-vpn-gnome-desktop
 
