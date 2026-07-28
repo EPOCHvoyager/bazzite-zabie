@@ -23,7 +23,7 @@ _get_from_obs () {
 echo Installing packages from Open Build Service…
 
 REPO="home:luisbocanegra"
-PACKAGES=( "plasma-panel-colorizer" "plasma-panel-spacer-extended" "kde-material-you-colors" )
+PACKAGES=( "plasma-panel-colorizer" "plasma-panel-spacer-extended" )
 _get_from_obs
 
 REPO="home:paulmcauley"
