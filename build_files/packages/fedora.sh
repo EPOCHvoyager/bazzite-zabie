@@ -8,7 +8,8 @@ dnf5 -y install \
 	--setopt=tsflags=noscripts \
 	irqbalance
 dnf5 -y install \
-	realtime-setup
+	realtime-setup \
+	gamemode
 dnf5 -y install \
 	--setopt=install_weak_deps=True \
 	langpacks-pt_BR
@@ -17,6 +18,7 @@ dnf5 -y install \
 rpm -V \
     realtime-setup \
     irqbalance \
+    gamemode \
     langpacks-pt_BR
 
 echo Successfully installed.
