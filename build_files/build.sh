@@ -29,6 +29,17 @@ done
 echo Package installation done.
 
 
+# Remove stock settings for user scripting-only use.
+echo Removing Feral gamemode stock configuration…
+
+rm /usr/share/gamemode/gamemode.ini
+
+
+[[ ! -f "/usr/share/gamemode/gamemode.ini" ]]
+
+echo Successfully removed.
+
+
 # Disable Krunner in favor of AppGrid.
 echo Disabling Krunner…
 
