@@ -43,11 +43,6 @@ rpm -V \
     cachyos-ananicy-rules
 dnf5 repolist --disabled | grep -q "${COPR}"
 
-COPR="sirlucjan/scx-scheds-cargo"
-PACKAGES=( "scx-scheds-dev-git" "scx-tools-dev-git" )
-REPLACE=1
-_get_from_copr
-
 # This package needs to be rebuilt for specific versions of Plasma.
 COPR="infinality/kwin-effects-better-blur-dx"
 PACKAGES=( "kwin-effects-better-blur-dx" )
