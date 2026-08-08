@@ -26,6 +26,12 @@ _get_from_copr () {
 
 echo Installing packages from Copr…
 
+# Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image
+COPR="sirlucjan/scx-scheds-cargo"
+PACKAGES=( "scx-scheds-git" "scx-tools-git" )
+REPLACE=1
+_get_from_copr
+
 # This package needs to be rebuilt for specific versions of Plasma.
 COPR="infinality/kwin-effects-better-blur-dx"
 PACKAGES=( "kwin-effects-better-blur-dx" )
