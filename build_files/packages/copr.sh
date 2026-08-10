@@ -28,7 +28,7 @@ echo Installing packages from Copr…
 
 # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image
 COPR="sirlucjan/scx-scheds-cargo"
-PACKAGES=( "scx-scheds-git" "scx-tools-git" )
+PACKAGES=( "scx-scheds-dev-git" "scx-tools-dev-git" )
 REPLACE=1
 _get_from_copr
 
