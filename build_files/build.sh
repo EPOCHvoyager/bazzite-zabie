@@ -22,9 +22,6 @@ echo Successfully enabled.
 sed -i 's/^plugdev:x:963:/plugdev:x:46:/' /etc/group
 
 
-[[ "$(getent group 46)" =~ "plugdev" ]]
-
-
 # Run all package installation scripts in set directory.
 echo Installing packages…
 
