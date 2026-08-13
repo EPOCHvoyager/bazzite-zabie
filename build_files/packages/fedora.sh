@@ -6,7 +6,8 @@ echo Installing packages from Fedora…
 
 dnf5 -y install \
 	--setopt=tsflags=noscripts \
-	irqbalance \
+	irqbalance
+rpm-ostree install \
 	realtime-setup \
 	gamemode
 dnf5 -y install \
