@@ -19,7 +19,7 @@ echo Successfully enabled.
 
 # Correct plugdev GID
 # TODO: Investigate upstream
-groupmod -g 46 plugdev
+sed -i 's/^plugdev:x:963:/plugdev:x:46:/' /etc/group
 
 
 [[ "$(getent group 46)" =~ "plugdev" ]]
