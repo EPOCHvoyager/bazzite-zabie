@@ -17,6 +17,14 @@ systemctl is-enabled pci-latency.service
 echo Successfully enabled.
 
 
+# Correct plugdev GID
+# TODO: Investigate upstream
+groupmod -g 46 plugdev
+
+
+[[ "$(getent group 46)" =~ "plugdev" ]]
+
+
 # Run all package installation scripts in set directory.
 echo Installing packages…
 
