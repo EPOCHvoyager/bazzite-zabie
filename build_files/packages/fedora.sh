@@ -22,7 +22,6 @@ rpm -V \
 
 echo Successfully installed.
 
-
 echo Enabling service units…
 
 systemctl enable irqbalance.service

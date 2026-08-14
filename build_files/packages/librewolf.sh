@@ -21,7 +21,6 @@ dnf5 repolist --disabled | grep -q "${REPO_ID}"
 
 echo Successfully installed.
 
-
 echo Applying fix for Plasma Integration…
 
 # See — https://www.librewolf.net/docs/faq/#how-do-i-get-native-messaging-to-work.

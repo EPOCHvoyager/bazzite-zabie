@@ -26,7 +26,6 @@ _install_and_clean() {
 	rm "${TMP_DIR}"/*.rpm
 }
 
-
 echo Installing Heroic from latest GitHub release…
 
 REPO="Heroic-Games-Launcher/HeroicGamesLauncher"

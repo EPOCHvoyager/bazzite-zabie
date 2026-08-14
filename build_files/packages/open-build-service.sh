@@ -19,7 +19,6 @@ _get_from_obs () {
 	dnf5 repolist --disabled | grep -q "${REPO//[!0-9a-zA-Z.-]/_}"
 }
 
-
 echo Installing packages from Open Build Service…
 
 REPO="home:luisbocanegra"

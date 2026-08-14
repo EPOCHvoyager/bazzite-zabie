@@ -23,7 +23,6 @@ _get_from_copr () {
 	dnf5 repolist --disabled | grep -q "${COPR//[!0-9a-zA-Z.-]/:}"
 }
 
-
 echo Installing packages from Copr…
 
 # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image
@@ -48,7 +47,6 @@ PACKAGES=( "coolercontrol" "coolercontrold" )
 _get_from_copr
 
 echo Successfully installed.
-
 
 echo Enabling service units…
 
