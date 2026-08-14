@@ -36,7 +36,7 @@ systemctl is-enabled realtime-entsk.service
 echo Successfully enabled.
 
 
-read SCRIPTS_RAN < /tmp/scripts_ran
+read -r SCRIPTS_RAN < /tmp/scripts_ran
 ((SCRIPTS_RAN++))
 echo "${SCRIPTS_RAN}" > /tmp/scripts_ran
 

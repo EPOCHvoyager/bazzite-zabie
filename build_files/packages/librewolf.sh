@@ -34,7 +34,7 @@ ln -s /usr/lib64/librewolf/native-messaging-hosts /usr/lib/librewolf/native-mess
 echo Successfully applied.
 
 
-read SCRIPTS_RAN < /tmp/scripts_ran
+read -r SCRIPTS_RAN < /tmp/scripts_ran
 ((SCRIPTS_RAN++))
 echo "${SCRIPTS_RAN}" > /tmp/scripts_ran
 

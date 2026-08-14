@@ -37,7 +37,7 @@ _install_and_clean
 echo Successfully installed.
 
 
-read SCRIPTS_RAN < /tmp/scripts_ran
+read -r SCRIPTS_RAN < /tmp/scripts_ran
 ((SCRIPTS_RAN++))
 echo "${SCRIPTS_RAN}" > /tmp/scripts_ran
 
