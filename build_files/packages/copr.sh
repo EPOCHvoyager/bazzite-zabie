@@ -58,3 +58,7 @@ systemctl enable coolercontrold.service
 systemctl is-enabled coolercontrold.service
 
 echo Successfully enabled.
+
+
+((SCRIPTS_RAN++))
+echo Done installing packages from Copr.

@@ -35,3 +35,7 @@ systemctl is-enabled realtime-setup.service
 systemctl is-enabled realtime-entsk.service
 
 echo Successfully enabled.
+
+
+((SCRIPTS_RAN++))
+echo Done installing packages from Fedora.

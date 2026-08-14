@@ -31,3 +31,7 @@ PACKAGES=( "klassy" )
 _get_from_obs
 
 echo Successfully installed.
+
+
+((SCRIPTS_RAN++))
+echo Done installing packages from Open Build Service.

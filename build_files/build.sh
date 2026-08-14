@@ -21,10 +21,16 @@ echo Successfully enabled.
 echo Installing packages…
 
 PACKAGE_DIR="/ctx/packages"
+SCRIPTS_RAN=0
 
 for f in "${PACKAGE_DIR}"/*.sh; do
 	sh -c "$f" || exit 1
 done
+
+
+# Incrementing the SCRIPTS_RAN variable is handled inside each script.
+shopt -s nullglob; scripts=("${PACKAGE_DIR}"/*.sh); SCRIPT_COUNT="${#scripts[@]}"
+[[ "${SCRIPTS_RAN}" == "${SCRIPT_COUNT}" ]]
 
 echo Package installation done.
 

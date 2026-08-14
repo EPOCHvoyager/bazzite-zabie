@@ -33,3 +33,7 @@ ln -s /usr/lib64/librewolf/native-messaging-hosts /usr/lib/librewolf/native-mess
 [[ -f /usr/lib/librewolf/native-messaging-hosts/org.kde.plasma.browser_integration.json ]]
 
 echo Successfully applied.
+
+
+((SCRIPTS_RAN++))
+echo Done installing LibreWolf.
