@@ -26,7 +26,7 @@ for f in "${PACKAGE_DIR}"/*.sh; do
 done
 
 
-shopt -s nullglob ; scripts=("${PACKAGE_DIR}"/*.sh) ; SCRIPT_COUNT="${#scripts[@]}"
+shopt -s nullglob ; scripts=("${PACKAGE_DIR}"/*.sh) ; SCRIPT_COUNT="${#scripts[@]}" ; shopt -u nullglob
 read SCRIPTS_RAN < /tmp/scripts_ran
 
 [[ "${SCRIPTS_RAN}" == "${SCRIPT_COUNT}" ]]
