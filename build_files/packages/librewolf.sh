@@ -35,7 +35,6 @@ echo Successfully applied.
 
 
 read -r SCRIPTS_RAN < /tmp/scripts_ran
-((SCRIPTS_RAN++))
-echo "${SCRIPTS_RAN}" > /tmp/scripts_ran
+echo $(( ++SCRIPTS_RAN )) > /tmp/scripts_ran
 
 echo Done installing LibreWolf.
