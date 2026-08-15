@@ -29,9 +29,7 @@ done
 shopt -s nullglob ; scripts=("${PACKAGE_DIR}"/*.sh) ; SCRIPT_COUNT="${#scripts[@]}" ; shopt -u nullglob
 read -r SCRIPTS_RAN < /tmp/scripts_ran
 
-[[ "${SCRIPTS_RAN}" == "${SCRIPT_COUNT}" ]]
-
-rm /tmp/scripts_ran
+[[ "${SCRIPTS_RAN}" == "${SCRIPT_COUNT}" ]] && rm /tmp/scripts_ran
 
 echo Package installation done.
 
