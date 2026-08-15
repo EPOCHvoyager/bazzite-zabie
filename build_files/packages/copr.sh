@@ -25,7 +25,7 @@ _get_from_copr () {
 
 echo Installing packages from Copr…
 
-# Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image
+# Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
 COPR="sirlucjan/scx-scheds-cargo"
 PACKAGES=( "scx-scheds-git" "scx-tools-git" )
 REPLACE=1
