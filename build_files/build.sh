@@ -19,7 +19,7 @@ echo Successfully enabled.
 echo Installing packages…
 
 PACKAGE_DIR="/ctx/packages"
-SCRIPTS_RAN=0 ; echo "${SCRIPTS_RAN}" > /tmp/scripts_ran
+export SCRIPTS_RAN=0 ; echo "${SCRIPTS_RAN}" > /tmp/scripts_ran
 
 for f in "${PACKAGE_DIR}"/*.sh; do
 	sh -c "$f" || exit 1
