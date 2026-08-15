@@ -33,7 +33,7 @@ _get_from_copr
 
 # This package needs to be rebuilt for specific versions of Plasma.
 COPR="infinality/kwin-effects-better-blur-dx"
-PACKAGES=( "kwin-effects-better-blur-dx" )
+PACKAGES=( "kwin-effects-better-blur-dx-2.5.1-1.20260808_061638gite8475d0.fc44" )
 _get_from_copr
 
 # Pull from the official Copr, as Terra is often out of date.
