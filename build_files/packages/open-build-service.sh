@@ -30,9 +30,3 @@ PACKAGES=( "klassy" )
 _get_from_obs
 
 echo Successfully installed.
-
-
-read -r SCRIPTS_RAN < /tmp/scripts_ran
-echo $(( ++SCRIPTS_RAN )) > /tmp/scripts_ran
-
-echo Done installing packages from Open Build Service.

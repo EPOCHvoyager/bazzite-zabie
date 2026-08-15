@@ -19,17 +19,16 @@ echo Successfully enabled.
 echo Installing packages…
 
 PACKAGE_DIR="/ctx/packages"
-export SCRIPTS_RAN=0 ; echo "${SCRIPTS_RAN}" > /tmp/scripts_ran
+SCRIPTS_RAN=0
 
 for f in "${PACKAGE_DIR}"/*.sh; do
-	sh -c "$f" || exit 1
+	sh -c "$f" && (( ++SCRIPTS_RAN )) || exit 1
 done
 
 
 shopt -s nullglob ; scripts=("${PACKAGE_DIR}"/*.sh) ; SCRIPT_COUNT="${#scripts[@]}" ; shopt -u nullglob
-read -r SCRIPTS_RAN < /tmp/scripts_ran
 
-[[ "${SCRIPTS_RAN}" == "${SCRIPT_COUNT}" ]] && rm /tmp/scripts_ran
+[[ "${SCRIPTS_RAN}" == "${SCRIPT_COUNT}" ]]
 
 echo Package installation done.
 
