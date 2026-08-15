@@ -40,13 +40,3 @@ rm /usr/share/gamemode/gamemode.ini
 [[ ! -f "/usr/share/gamemode/gamemode.ini" ]]
 
 echo Successfully removed.
-
-# Disable Krunner in favor of AppGrid.
-echo Disabling Krunner…
-
-chmod -x /usr/bin/krunner
-
-
-[[ $( stat --format='%a' /usr/bin/krunner ) = "644" ]]
-
-echo Successfully disabled.

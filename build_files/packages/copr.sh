@@ -36,11 +36,6 @@ COPR="infinality/kwin-effects-better-blur-dx"
 PACKAGES=( "kwin-effects-better-blur-dx" )
 _get_from_copr
 
-# A Spotlight-like application launcher for Plasma.
-COPR="scujas/plasma-applet-appgrid"
-PACKAGES=( "plasma-applet-appgrid" )
-_get_from_copr
-
 # Pull from the official Copr, as Terra is often out of date.
 COPR="codifryed/CoolerControl"
 PACKAGES=( "coolercontrol" "coolercontrold" )
