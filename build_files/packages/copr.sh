@@ -31,8 +31,8 @@ dnf5 -y install \
 
 
 rpm -V \
-    ananicy-cpp \
-    cachyos-ananicy-rules
+	ananicy-cpp \
+	cachyos-ananicy-rules
 dnf5 repolist --disabled | grep -q "${COPR}"
 
 # This package needs to be rebuilt for specific versions of Plasma.
