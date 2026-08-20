@@ -5,15 +5,8 @@ set ${CI:+-x} -euo pipefail
 _get_from_copr () {
 	dnf5 -y copr enable \
 		"${COPR}"
-	if [[ -z "${REPLACE}" ]]; then
-		dnf5 -y install \
-			"${PACKAGES[@]}"
-	else
-		dnf5 -y install \
-			--allowerasing \
-			"${PACKAGES[@]}"
-		env -u REPLACE
-	fi
+	dnf5 -y install \
+		"${PACKAGES[@]}"
 	dnf5 -y copr disable \
 		"${COPR}"
 
