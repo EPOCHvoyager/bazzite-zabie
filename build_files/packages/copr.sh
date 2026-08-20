@@ -33,7 +33,8 @@ dnf5 -y install \
 # TODO: Remove once there's a new successful build on Copr
 dnf5 -y install \
 	--enable-repo="${COPR}" \
-	cachyos-ananicy-rules
+	cachyos-ananicy-rules \
+ scx-manager
 	#ananicy-cpp
 
 
