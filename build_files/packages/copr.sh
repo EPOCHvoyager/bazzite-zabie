@@ -34,7 +34,7 @@ dnf5 -y install \
 dnf5 -y install \
 	--enable-repo="${COPR}" \
 	cachyos-ananicy-rules \
- scx-manager
+	scx-manager
 	#ananicy-cpp
 
 
