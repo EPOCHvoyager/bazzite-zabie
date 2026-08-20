@@ -25,6 +25,23 @@ _get_from_copr () {
 
 echo Installing packages from Copr…
 
+# This Copr repository is included in the base image. Thus, enable it ephemerally with --enable-repo, passing the repo ID.
+COPR="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons"
+dnf5 -y install \
+	--setopt=tsflags=noscripts \
+	https://download.copr.fedorainfracloud.org/results/bieszczaders/kernel-cachyos-addons/fedora-43-x86_64/10428026-ananicy-cpp/ananicy-cpp-1.2.0-1.fc43.x86_64.rpm
+# TODO: Remove once there's a new successful build on Copr
+dnf5 -y install \
+	--enable-repo="${COPR}" \
+	cachyos-ananicy-rules
+	#ananicy-cpp
+
+
+rpm -V \
+    ananicy-cpp \
+    cachyos-ananicy-rules
+dnf5 repolist --disabled | grep -q "${COPR}"
+
 # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
 COPR="sirlucjan/scx-scheds-cargo"
 PACKAGES=( "scx-scheds-git" "scx-tools-git" )
@@ -50,9 +67,11 @@ echo Successfully installed.
 
 echo Enabling service units…
 
+systemctl enable ananicy-cpp.service
 systemctl enable coolercontrold.service
 
 
+systemctl is-enabled ananicy-cpp.service
 systemctl is-enabled coolercontrold.service
 
 echo Successfully enabled.
