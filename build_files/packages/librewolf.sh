@@ -4,11 +4,12 @@ set ${CI:+-x} -euo pipefail
 
 echo Installing LibreWolf…
 
+REPO_URL="https://repo.librewolf.net/librewolf.repo"
 PACKAGE="librewolf"
 REPO_ID="${PACKAGE}"
 
 dnf5 -y config-manager \
-    addrepo --from-repofile=https://repo.librewolf.net/librewolf.repo
+    addrepo --from-repofile="${REPO_URL}"
 dnf5 -y install \
     "${PACKAGE}"
 dnf5 config-manager disable \
