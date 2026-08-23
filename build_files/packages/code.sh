@@ -14,14 +14,14 @@ REPO_ID="${PACKAGE}"
 
 rpm --import "${REPO_KEY}"
 cat << EOF > "${REPO_PATH}"/"${REPO_FILE}"
-["${REPO_ID}"]
+[${REPO_ID}]
 name=Visual Studio Code
-baseurl="${REPO_BASE_URL}"
+baseurl=${REPO_BASE_URL}
 enabled=1
 autorefresh=1
 type=rpm-md
 gpgcheck=1
-gpgkey="${REPO_KEY}"
+gpgkey=${REPO_KEY}
 EOF
 
 dnf5 -y install \
