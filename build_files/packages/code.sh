@@ -30,7 +30,7 @@ dnf5 config-manager disable \
     "${REPO_ID}"
 
 
-rpm -v \
+rpm -V \
     "${PACKAGE}"
 dnf5 repolist --disabled | grep -q "${REPO_ID}"
 
