@@ -4,17 +4,21 @@ set ${CI:+-x} -euo pipefail
 
 echo Installing Mullvad VPN software…
 
+REPO_URL="https://repository.mullvad.net/rpm/stable/mullvad.repo"
+PACKAGE="mullvad-vpn"
+REPO_ID="mullvad-stable"
+
 dnf5 config-manager addrepo \
-	--from-repofile=https://repository.mullvad.net/rpm/stable/mullvad.repo
+	--from-repofile="${REPO}"
 dnf5 -y install \
 	--setopt=tsflags=noscripts \
-	mullvad-vpn
+	"${PACKAGE}"
 dnf5 config-manager disable \
-	mullvad-stable
+	"${REPO_ID}"
 
 
 rpm -V \
-    mullvad-vpn
+    "${REPO_ID}"
 
 echo Successfully installed.
 
