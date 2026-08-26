@@ -18,7 +18,7 @@ dnf5 config-manager disable \
 
 
 rpm -V \
-    "${REPO_ID}"
+    "${PACKAGE}"
 dnf5 repolist --disabled | grep -q "${REPO_ID}"
 
 echo Successfully installed.
