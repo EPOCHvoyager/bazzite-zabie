@@ -52,11 +52,6 @@ COPR="codifryed/CoolerControl"
 PACKAGES=( "coolercontrol" "coolercontrold" )
 _get_from_copr
 
-# Chromium-based web browser.
-COPR="imput/helium"
-PACKAGES=( "helium-bin" )
-_get_from_copr
-
 echo Successfully installed.
 
 echo Enabling service units…
