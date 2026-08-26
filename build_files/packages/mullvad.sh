@@ -9,7 +9,7 @@ PACKAGE="mullvad-vpn"
 REPO_ID="mullvad-stable"
 
 dnf5 config-manager addrepo \
-	--from-repofile="${REPO}"
+	--from-repofile="${REPO_URL}"
 dnf5 -y install \
 	--setopt=tsflags=noscripts \
 	"${PACKAGE}"
