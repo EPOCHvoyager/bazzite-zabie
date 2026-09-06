@@ -24,12 +24,14 @@ _get_from_copr () {
 }
 
 _setup_units() {
+	echo Enabling service units…
     for u in "${UNITS[@]}"; do
         systemctl enable "$u" || exit 1
 
 
         systemctl is-enabled "$u" || exit 1
     done
+    echo Successfully enabled.
 }
 
 echo Installing packages from Copr…
@@ -63,9 +65,6 @@ _get_from_copr
 
 echo Successfully installed.
 
-echo Enabling service units…
-
 UNITS=( "coolercontrold.service" )
 _setup_units
 
-echo Successfully enabled.
