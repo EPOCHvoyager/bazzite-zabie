@@ -33,6 +33,5 @@ _setup_units() {
     echo Successfully enabled.
 }
 
-_install
-
+_install && \
 _setup_units

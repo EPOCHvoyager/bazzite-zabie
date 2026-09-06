@@ -46,9 +46,6 @@ _setup_units() {
 	echo Successfully enabled.
 }
 
-_install
-
-_add_permissions
-
+_install && \
+_add_permissions && \
 _setup_units
-

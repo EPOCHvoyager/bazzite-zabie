@@ -54,7 +54,7 @@ COPR="codifryed/CoolerControl"
 PACKAGES=( "coolercontrol" )
 UNITS=( "coolercontrold.service" )
 OPTS=( "--setopt=install_weak_deps=True" )
-_get_from_copr
+_get_from_copr && \
 _setup_units
 
 echo Successfully installed.
