@@ -23,6 +23,15 @@ _get_from_copr () {
 	dnf5 repolist --disabled | grep -q "${COPR//[!0-9a-zA-Z.-]/:}"
 }
 
+_unit_setup() {
+    for u in "${UNITS[@]}"; do
+        systemctl enable "$u" || exit 1
+
+
+        systemctl is-enabled "$u" || exit 1
+    done
+}
+
 echo Installing packages from Copr…
 
 # This Copr repository is included in the base image. Thus, enable it ephemerally with --enable-repo, passing the repo ID.
@@ -56,9 +65,7 @@ echo Successfully installed.
 
 echo Enabling service units…
 
-systemctl enable coolercontrold.service
-
-
-systemctl is-enabled coolercontrold.service
+UNITS=( "coolercontrold.service" )
+_unit_setup
 
 echo Successfully enabled.
