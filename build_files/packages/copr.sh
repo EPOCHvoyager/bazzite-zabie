@@ -6,7 +6,7 @@ _get_from_copr () {
 	dnf5 -y copr enable \
 		"${COPR}"
 	dnf5 -y install \
-		"${OPTS[@]}" \
+		${OPTS:+"${OPTS[@]}"} \
 		"${PACKAGES[@]}"
 	dnf5 -y copr disable \
 		"${COPR}"
