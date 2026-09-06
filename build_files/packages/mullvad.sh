@@ -2,46 +2,53 @@
 
 set ${CI:+-x} -euo pipefail
 
-echo Installing Mullvad VPN software…
-
 REPO_URL="https://repository.mullvad.net/rpm/stable/mullvad.repo"
 PACKAGE="mullvad-vpn"
 REPO_ID="mullvad-stable"
+UNITS=( "mullvad-daemon.service" "mullvad-early-boot-blocking.service" )
+EXCLUDE_BIN="/usr/bin/mullvad-exclude"
 
-dnf5 config-manager addrepo \
-	--from-repofile="${REPO_URL}"
-dnf5 -y install \
-	--setopt=tsflags=noscripts \
-	"${PACKAGE}"
-dnf5 config-manager disable \
-	"${REPO_ID}"
-
-
-rpm -V \
-    "${PACKAGE}"
-dnf5 repolist --disabled | grep -q "${REPO_ID}"
-
-echo Successfully installed.
+_install() {
+	echo Installing Mullvad VPN software…
+	dnf5 config-manager addrepo \
+		--from-repofile="${REPO_URL}"
+	dnf5 -y install \
+		--setopt=tsflags=noscripts \
+		"${PACKAGE}"
+	dnf5 config-manager disable \
+		"${REPO_ID}"
 
 
-echo Adding permissions…
+	rpm -V \
+		"${PACKAGE}"
+	dnf5 repolist --disabled | grep -q "${REPO_ID}"
+	echo Successfully installed.
+}
 
-# This is normally handled by an install scriptlet.
-chmod u+s "/usr/bin/mullvad-exclude"
-
-
-[[ $( stat --format='%a' /usr/bin/mullvad-exclude ) = "4755" ]]
-
-echo Successfully added.
-
-
-echo Enabling service units…
-
-systemctl enable mullvad-daemon.service
-systemctl enable mullvad-early-boot-blocking.service
+_add_permission() {
+	echo Adding permissions…
+	# This is normally handled by an install scriptlet.
+	chmod u+s "${EXCLUDE_BIN}"
 
 
-systemctl is-enabled mullvad-daemon.service
-systemctl is-enabled mullvad-early-boot-blocking.service
+	[[ $( stat --format='%a' "${EXCLUDE_BIN}" ) = "4755" ]]
+	echo Successfully added.
+}
 
-echo Successfully enabled.
+_unit_setup() {
+	echo Enabling service units…
+    for u in "${UNITS[@]}"; do
+        systemctl enable "$u" && \
+
+
+        systemctl is-enabled "$u" || exit 1
+    done
+	echo Successfully enabled.
+}
+
+_install
+
+_add_permission
+
+_unit_setup
+
