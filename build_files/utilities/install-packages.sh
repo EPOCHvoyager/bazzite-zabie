@@ -2,7 +2,6 @@
 
 set ${CI:+-x} -euo pipefail
 
-# Run all package installation scripts in set directory.
 echo Installing packages…
 PACKAGE_DIR="/ctx/packages"
 shopt -s nullglob ; scripts=("${PACKAGE_DIR}"/*.sh) ; SCRIPT_COUNT="${#scripts[@]}" ; shopt -u nullglob
