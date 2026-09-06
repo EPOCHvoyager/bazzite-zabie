@@ -25,7 +25,7 @@ _install() {
 	echo Successfully installed.
 }
 
-_add_permission() {
+_add_permissions() {
 	echo Adding permissions…
 	# This is normally handled by an install scriptlet.
 	chmod u+s "${EXCLUDE_BIN}"
@@ -48,7 +48,7 @@ _setup_units() {
 
 _install
 
-_add_permission
+_add_permissions
 
 _setup_units
 
