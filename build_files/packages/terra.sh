@@ -15,7 +15,7 @@ _install() {
         "${PACKAGES[@]}"
 }
 
-_unit_setup() {
+_setup_units() {
     for u in "${UNITS[@]}"; do
         systemctl enable "$u" && \
 
@@ -32,6 +32,6 @@ echo Successfully installed.
 
 echo Enabling service unit…
 
-_unit_setup
+_setup_units
 
 echo Successfully enabled.

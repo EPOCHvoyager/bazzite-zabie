@@ -35,7 +35,7 @@ _add_permission() {
 	echo Successfully added.
 }
 
-_unit_setup() {
+_setup_units() {
 	echo Enabling service units…
     for u in "${UNITS[@]}"; do
         systemctl enable "$u" && \
@@ -50,5 +50,5 @@ _install
 
 _add_permission
 
-_unit_setup
+_setup_units
 

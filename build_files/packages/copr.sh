@@ -23,7 +23,7 @@ _get_from_copr () {
 	dnf5 repolist --disabled | grep -q "${COPR//[!0-9a-zA-Z.-]/:}"
 }
 
-_unit_setup() {
+_setup_units() {
     for u in "${UNITS[@]}"; do
         systemctl enable "$u" || exit 1
 
@@ -66,6 +66,6 @@ echo Successfully installed.
 echo Enabling service units…
 
 UNITS=( "coolercontrold.service" )
-_unit_setup
+_setup_units
 
 echo Successfully enabled.
