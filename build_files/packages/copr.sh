@@ -15,7 +15,7 @@ _get_from_copr () {
 	rpm -V \
 		"${PACKAGES[@]}"
 	dnf5 repolist --disabled | grep -q "${COPR//[!0-9a-zA-Z.-]/:}"
-	unset OPTS ; unset COPR ; unset PACKAGES
+	unset -v OPTS COPR PACKAGES
 }
 
 echo Installing packages from Copr…
