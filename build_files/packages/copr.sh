@@ -15,7 +15,7 @@ _get_from_copr () {
 	rpm -V \
 		"${PACKAGES[@]}"
 	dnf5 repolist --disabled | grep -q "${COPR//[!0-9a-zA-Z.-]/:}"
-	OPTS="" ; COPR="" ; PACKAGES=""
+	OPTS=( "" ) ; COPR="" ; PACKAGES=( "" )
 }
 
 _setup_units() {
@@ -26,22 +26,16 @@ _setup_units() {
 
         systemctl is-enabled "$u" || exit 1
     done
-    UNITS=""
+    UNITS=( "" )
     echo Successfully enabled.
 }
 
 echo Installing packages from Copr…
 
 # This Copr repository is included in the base image. Thus, enable it ephemerally with --enable-repo, passing the repo ID.
-COPR="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos-addons"
-dnf5 -y install \
-	--enable-repo="${COPR}" \
-	scx-manager
-
-
-rpm -V \
-	scx-manager
-dnf5 repolist --disabled | grep -q "${COPR}"
+COPR="bieszczaders/kernel-cachyos-addons"
+PACKAGES=( "scx-manager" )
+OPTS=( "" )
 
 # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
 COPR="sirlucjan/scx-scheds-cargo"
