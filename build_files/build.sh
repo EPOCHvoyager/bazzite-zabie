@@ -9,6 +9,6 @@ UTILITY_SCRIPTS=( \
 "install-packages.sh" \
 "remove-gamemode-config.sh" )
 
-for s in "${UTILITY_DIR}"/"${UTILITY_SCRIPTS[@]}"; do
+for s in "${UTILITY_DIR}/${UTILITY_SCRIPTS[@]}"; do
 	sh -c "$s" || exit 1
 done
