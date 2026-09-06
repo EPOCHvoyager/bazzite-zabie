@@ -15,7 +15,7 @@ _get_from_copr () {
 	rpm -V \
 		"${PACKAGES[@]}"
 	dnf5 repolist --disabled | grep -q "${COPR//[!0-9a-zA-Z.-]/:}"
-	OPTS=( "" ) ; COPR="" ; PACKAGES=( "" )
+	unset OPTS ; unset COPR ; unset PACKAGES
 }
 
 _setup_units() {
@@ -26,7 +26,7 @@ _setup_units() {
 
         systemctl is-enabled "$u" || exit 1
     done
-    UNITS=( "" )
+    unset UNITS
     echo Successfully enabled.
 }
 
