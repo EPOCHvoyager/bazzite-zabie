@@ -17,7 +17,7 @@ _install() {
 
 _unit_setup() {
     for u in "${UNITS[@]}"; do
-        systemctl enable "$u" || exit 1
+        systemctl enable "$u" && \
 
 
         systemctl is-enabled "$u" || exit 1
