@@ -5,15 +5,9 @@ set ${CI:+-x} -euo pipefail
 _get_from_copr () {
 	dnf5 -y copr enable \
 		"${COPR}"
-	if [[ -z "${REPLACE}" ]]; then
-		dnf5 -y install \
-			"${PACKAGES[@]}"
-	else
-		dnf5 -y install \
-			--allowerasing \
-			"${PACKAGES[@]}"
-		env -u REPLACE
-	fi
+	dnf5 -y install \
+		"${OPTS[@]}" \
+		"${PACKAGES[@]}"
 	dnf5 -y copr disable \
 		"${COPR}"
 
@@ -21,16 +15,18 @@ _get_from_copr () {
 	rpm -V \
 		"${PACKAGES[@]}"
 	dnf5 repolist --disabled | grep -q "${COPR//[!0-9a-zA-Z.-]/:}"
+	OPTS="" ; COPR="" ; PACKAGES=""
 }
 
 _setup_units() {
-	echo Enabling service units…
+	echo Enabling service unit…
     for u in "${UNITS[@]}"; do
         systemctl enable "$u" || exit 1
 
 
         systemctl is-enabled "$u" || exit 1
     done
+    UNITS=""
     echo Successfully enabled.
 }
 
@@ -50,21 +46,21 @@ dnf5 repolist --disabled | grep -q "${COPR}"
 # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
 COPR="sirlucjan/scx-scheds-cargo"
 PACKAGES=( "scx-scheds-git" "scx-tools-git" )
-REPLACE=1
+OPTS=( "--allowerasing" )
 _get_from_copr
 
 # This package needs to be rebuilt for specific versions of Plasma.
 COPR="infinality/kwin-effects-better-blur-dx"
 PACKAGES=( "kwin-effects-better-blur-dx-2.5.1-1.20260808_061638gite8475d0.fc44" )
+OPTS=( "" )
 _get_from_copr
 
 # Pull from the official Copr, as Terra is often out of date.
 COPR="codifryed/CoolerControl"
-PACKAGES=( "coolercontrol" "coolercontrold" )
-_get_from_copr
-
-echo Successfully installed.
-
+PACKAGES=( "coolercontrol" )
 UNITS=( "coolercontrold.service" )
+OPTS=( "--setopt=install_weak_deps=True" )
+_get_from_copr
 _setup_units
 
+echo Successfully installed.
