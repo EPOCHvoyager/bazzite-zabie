@@ -17,6 +17,7 @@ _get_from_obs () {
 	rpm -V \
 		"${PACKAGES[@]}"
 	dnf5 repolist --disabled | grep -q "${REPO//[!0-9a-zA-Z.-]/_}"
+	unset -v REPO PACKAGES
 }
 
 echo Installing packages from Open Build Service…
