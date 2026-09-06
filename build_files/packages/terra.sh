@@ -2,13 +2,14 @@
 
 set ${CI:+-x} -euo pipefail
 
-PACKAGES=( "system76-scheduler" )
-UNITS=( "com.system76.Scheduler.service" )
+PACKAGES=( "ananicy-cpp" )
+UNITS=( "${PACKAGES[0]}" )
 
 _install() {
     echo Installing package from Terra…
     dnf5 -y install \
         --enable-repo="terra" \
+        --setopt=install_weak_deps=True \
         "${PACKAGES[@]}"
 
 
