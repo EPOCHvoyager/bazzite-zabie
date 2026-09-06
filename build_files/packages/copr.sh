@@ -18,18 +18,6 @@ _get_from_copr () {
 	unset OPTS ; unset COPR ; unset PACKAGES
 }
 
-_setup_units() {
-	echo Enabling service unit…
-    for u in "${UNITS[@]}"; do
-        systemctl enable "$u" && \
-
-
-        systemctl is-enabled "$u" || exit 1
-    done
-    unset UNITS
-    echo Successfully enabled.
-}
-
 echo Installing packages from Copr…
 
 COPR="bieszczaders/kernel-cachyos-addons"
@@ -46,13 +34,5 @@ _get_from_copr
 COPR="infinality/kwin-effects-better-blur-dx"
 PACKAGES=( "kwin-effects-better-blur-dx-2.5.1-1.20260808_061638gite8475d0.fc44" )
 _get_from_copr
-
-# Pull from the official Copr, as Terra is often out of date.
-COPR="codifryed/CoolerControl"
-PACKAGES=( "coolercontrol" )
-UNITS=( "coolercontrold.service" )
-OPTS=( "--setopt=install_weak_deps=True" )
-_get_from_copr && \
-_setup_units
 
 echo Successfully installed.

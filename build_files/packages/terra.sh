@@ -6,9 +6,9 @@ OPTS=( "--enable-repo=terra" \
 "--setopt=tsflags=noscripts" \
 "--setopt=install_weak_deps=True" )
 
-PACKAGES=( "ananicy-cpp" )
+PACKAGES=( "ananicy-cpp" "coolercontrol" )
 
-UNITS=( "ananicy-cpp.service" )
+UNITS=( "ananicy-cpp.service" "coolercontrold.service" )
 
 _install() {
     echo Installing package from Terra…
