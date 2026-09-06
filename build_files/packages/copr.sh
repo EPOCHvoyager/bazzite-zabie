@@ -21,7 +21,7 @@ _get_from_copr () {
 _setup_units() {
 	echo Enabling service unit…
     for u in "${UNITS[@]}"; do
-        systemctl enable "$u" || exit 1
+        systemctl enable "$u" && \
 
 
         systemctl is-enabled "$u" || exit 1
