@@ -9,6 +9,7 @@ _install() {
     echo Installing package from Terra…
     dnf5 -y install \
         --enable-repo="terra" \
+        --setopt=tsflags=noscripts \
         --setopt=install_weak_deps=True \
         "${PACKAGES[@]}"
 
