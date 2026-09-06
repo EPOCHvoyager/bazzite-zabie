@@ -2,35 +2,43 @@
 
 set ${CI:+-x} -euo pipefail
 
-echo Installing packages from Fedora…
+OPTS=( "--setopt=tsflags=noscripts" "--setopt=install_weak_deps=True" )
 
-dnf5 -y install \
-	--setopt=tsflags=noscripts \
-	irqbalance \
-	realtime-setup \
-	gamemode
-dnf5 -y install \
-	--setopt=install_weak_deps=True \
-	langpacks-pt_BR
+PACKAGES=( \
+"realtime-setup" \
+"irqbalance" \
+"gamemode" \
+"langpacks-pt_BR" )
 
+UNITS=( \
+"irqbalance.service" \
+"realtime-setup.service" \
+"realtime-entsk.service" )
 
-rpm -V \
-    realtime-setup \
-    irqbalance \
-    gamemode \
-    langpacks-pt_BR
-
-echo Successfully installed.
-
-echo Enabling service units…
-
-systemctl enable irqbalance.service
-systemctl enable realtime-setup.service
-systemctl enable realtime-entsk.service
+_install() {
+	echo Installing packages from Fedora…
+	dnf5 -y install \
+		"${OPTS[@]}" \
+		"${PACKAGES[@]}"
 
 
-systemctl is-enabled irqbalance.service
-systemctl is-enabled realtime-setup.service
-systemctl is-enabled realtime-entsk.service
+	rpm -V \
+		"${PACKAGES[@]}"
+	echo Successfully installed.
+}
 
-echo Successfully enabled.
+
+_setup_units() {
+    echo Enabling service units…
+    for u in "${UNITS[@]}"; do
+        systemctl enable "$u" && \
+
+
+        systemctl is-enabled "$u" || exit 1
+    done
+    echo Successfully enabled.
+}
+
+_install
+
+_setup_units
