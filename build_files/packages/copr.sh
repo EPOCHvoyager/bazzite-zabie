@@ -34,7 +34,6 @@ echo Installing packages from Copr…
 
 COPR="bieszczaders/kernel-cachyos-addons"
 PACKAGES=( "scx-manager" )
-OPTS=( "" )
 _get_from_copr
 
 # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
@@ -46,7 +45,6 @@ _get_from_copr
 # This package needs to be rebuilt for specific versions of Plasma.
 COPR="infinality/kwin-effects-better-blur-dx"
 PACKAGES=( "kwin-effects-better-blur-dx-2.5.1-1.20260808_061638gite8475d0.fc44" )
-OPTS=( "" )
 _get_from_copr
 
 # Pull from the official Copr, as Terra is often out of date.
