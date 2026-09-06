@@ -32,10 +32,10 @@ _setup_units() {
 
 echo Installing packages from Copr…
 
-# This Copr repository is included in the base image. Thus, enable it ephemerally with --enable-repo, passing the repo ID.
 COPR="bieszczaders/kernel-cachyos-addons"
 PACKAGES=( "scx-manager" )
 OPTS=( "" )
+_get_from_copr
 
 # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
 COPR="sirlucjan/scx-scheds-cargo"
