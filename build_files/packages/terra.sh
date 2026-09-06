@@ -3,7 +3,8 @@
 set ${CI:+-x} -euo pipefail
 
 PACKAGES=( "ananicy-cpp" )
-UNITS=( "${PACKAGES[0]}" )
+
+UNITS=( "ananicy-cpp.service" )
 
 _install() {
     echo Installing package from Terra…
