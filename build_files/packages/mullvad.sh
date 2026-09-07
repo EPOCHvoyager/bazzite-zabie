@@ -6,6 +6,7 @@ REPO_URL="https://repository.mullvad.net/rpm/stable/mullvad.repo"
 PACKAGE="mullvad-vpn"
 REPO_ID="mullvad-stable"
 UNITS=( "mullvad-daemon.service" "mullvad-early-boot-blocking.service" )
+OPTS=( "--setopt=tsflags=noscripts" )
 EXCLUDE_BIN="/usr/bin/mullvad-exclude"
 
 _install() {
@@ -13,7 +14,7 @@ _install() {
 	dnf5 config-manager addrepo \
 		--from-repofile="${REPO_URL}"
 	dnf5 -y install \
-		--setopt=tsflags=noscripts \
+		"${OPTS[@]}" \
 		"${PACKAGE}"
 	dnf5 config-manager disable \
 		"${REPO_ID}"
