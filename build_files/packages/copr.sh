@@ -33,6 +33,8 @@ _get_from_copr
 # This package needs to be rebuilt for specific versions of Plasma.
 COPR="infinality/kwin-effects-better-blur-dx"
 PACKAGES=( "kwin-effects-better-blur-dx" )
+# Avoid dependency resolution mixing Plasma version packages when upstream is behind Fedora
+OPTS=( "--disablerepo=fedora,updates,updates-archive" )
 _get_from_copr
 
 echo Successfully installed.
