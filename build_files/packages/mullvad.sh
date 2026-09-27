@@ -4,11 +4,11 @@
 
 set ${CI:+-x} -euo pipefail
 
-REPO_URL="https://repository.mullvad.net/rpm/stable/mullvad.repo" ; readonly REPO_URL
-PACKAGE="mullvad-vpn" ; readonly PACKAGE
-REPO_ID="mullvad-stable" ; readonly REPO_ID
-UNITS=( "mullvad-daemon.service" "mullvad-early-boot-blocking.service" ) ; readonly UNITS
-EXCLUDE_BIN="/usr/bin/mullvad-exclude" ; readonly EXCLUDE_BIN
+REPO_URL="https://repository.mullvad.net/rpm/stable/mullvad.repo" && readonly REPO_URL
+PACKAGE="mullvad-vpn" && readonly PACKAGE
+REPO_ID="mullvad-stable" && readonly REPO_ID
+UNITS=( "mullvad-daemon.service" "mullvad-early-boot-blocking.service" ) && readonly UNITS
+EXCLUDE_BIN="/usr/bin/mullvad-exclude" && readonly EXCLUDE_BIN
 
 _add_permissions() {
     echo Adding permissions…
