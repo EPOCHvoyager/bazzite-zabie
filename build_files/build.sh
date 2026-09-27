@@ -2,6 +2,8 @@
 
 set ${CI:+-x} -euo pipefail
 
+LIB_DIR="/ctx/lib"
+
 UTILITY_DIR="/ctx/utilities"
 UTILITY_SCRIPTS=( \
     "${UTILITY_DIR}/copy-files.sh" \
