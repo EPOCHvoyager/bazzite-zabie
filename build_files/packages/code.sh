@@ -27,7 +27,7 @@ _install_repo () {
     local repo_base_url ;   repo_base_url="$4"    && readonly repo_base_url
     local repo_key      ;   repo_key="$5"         && readonly repo_key
 
-    cat || return <<- EOF > "${install_path}"
+    cat <<- EOF > "${install_path}" || return
     [${repo_id}]
     name=${repo_name}
     baseurl=${repo_base_url}
