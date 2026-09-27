@@ -4,9 +4,9 @@
 
 set ${CI:+-x} -euo pipefail
 
-REPO_ID="terra" && readonly REPO_ID
-PACKAGES=( "coolercontrol" ) && readonly PACKAGES
-UNITS=( "coolercontrold.service" ) && readonly UNITS
+REPO_ID="terra"                     && readonly REPO_ID
+PACKAGES=( "coolercontrol" )        && readonly PACKAGES
+UNITS=( "coolercontrold.service" )  && readonly UNITS
 
 main () {
     echo Installing packages from Terra…
