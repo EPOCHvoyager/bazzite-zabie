@@ -20,7 +20,7 @@ _import_key () {
 }
 
 _install_repo () {
-    assert_argument_number 5 "$@" || { printf 'Five arguments necessary for installing Visual Studio Code repository.\n' >&2 && return 1 ; }
+    assert_argument_count 5 "$@" || { printf 'Five arguments necessary for installing Visual Studio Code repository.\n' >&2 && return 1 ; }
     local install_path  ;   install_path="$1"     && readonly install_path
     local repo_id       ;   repo_id="$2"          && readonly repo_id
     local repo_name     ;   repo_name="$3"        && readonly repo_name
