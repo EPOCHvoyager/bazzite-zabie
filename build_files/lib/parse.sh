@@ -12,3 +12,9 @@ assert_multiple_arguments () {
     (( $# >= 2 ))
 }
 
+assert_argument_number () {
+    assert_arguments_passed "$@" || return
+    local wanted_args ; wanted_args="$1" && readonly wanted_args
+    shift
+    (( $# == wanted_args ))
+}
