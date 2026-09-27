@@ -10,7 +10,7 @@ REPO_ID="mullvad-stable" && readonly REPO_ID
 UNITS=( "mullvad-daemon.service" "mullvad-early-boot-blocking.service" ) && readonly UNITS
 EXCLUDE_BIN="/usr/bin/mullvad-exclude" && readonly EXCLUDE_BIN
 
-_add_permissions() {
+_add_permissions () {
     echo Adding permissions…
     chmod u+s "${EXCLUDE_BIN}" || return
 
