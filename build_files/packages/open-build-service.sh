@@ -9,7 +9,7 @@ _get_obs_repo () {
 
     local release ; release="$(rpm -E '%fedora')" && readonly release
     local obs_repo ; obs_repo="https://download.opensuse.org/repositories/${obs_project}/Fedora_${release}/${obs_project}.repo" && readonly obs_repo
-    local obs_repo_id ; obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/:}" && readonly obs_repo_id
+    local obs_repo_id ; obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/_}" && readonly obs_repo_id
 
     dnf::add_repo "${obs_repo}" || return
     dnf::disable_repo "${obs_repo_id}" || return
@@ -21,7 +21,7 @@ _obs_install () {
     shift
     local -a packages ; packages=( "$@" ) && readonly packages
 
-    local obs_repo_id ; obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/:}" && readonly obs_repo_id
+    local obs_repo_id ; obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/_}" && readonly obs_repo_id
 
     _get_obs_repo "${obs_project}" || return
     echo "Installing packages from Open Build Service project ${obs_project}…" && \
