@@ -28,15 +28,15 @@ _install_repo () {
     local repo_key      ;   repo_key="$5"         && readonly repo_key
 
     cat <<- EOF > "${install_path}" || return
-    [${repo_id}]
-    name=${repo_name}
-    baseurl=${repo_base_url}
-    enabled=0
-    autorefresh=1
-    type=rpm-md
-    gpgcheck=1
-    gpgkey=${repo_key}
-EOF
+	[${repo_id}]
+	name=${repo_name}
+	baseurl=${repo_base_url}
+	enabled=0
+	autorefresh=1
+	type=rpm-md
+	gpgcheck=1
+	gpgkey=${repo_key}
+	EOF
 }
 
 main () {
