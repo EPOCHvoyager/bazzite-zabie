@@ -1,36 +1,25 @@
 #!/usr/bin/env bash
+. "${LIB_DIR}/dnf.sh"
+. "${LIB_DIR}/systemd.sh"
 
 set ${CI:+-x} -euo pipefail
 
-OPTS=( "--enable-repo=terra" \
-"--setopt=tsflags=noscripts" \
-"--setopt=install_weak_deps=True" )
-
+REPO_ID="terra"
 PACKAGES=( "coolercontrol" )
 UNITS=( "coolercontrold.service" )
 
-_install() {
-    echo Installing package from Terra…
-    dnf5 -y install \
-        "${OPTS[@]}" \
-        "${PACKAGES[@]}"
+echo Installing packages from Terra…
 
+DNF_INSTALL_OPTS=( \
+    "--setopt=tsflags=noscripts" \
+    "--setopt=install_weak_deps=True" \
+)
+dnf::external_install \
+    "${REPO_ID}" \
+    "${PACKAGES}"
+unset -v DNF_INSTALL_OPTS
 
-    rpm -V \
-        "${PACKAGES[@]}"
-    echo Successfully installed.
-}
+systemd::enable_units \
+    "${UNITS[@]}"
 
-_setup_units() {
-    echo Enabling service unit…
-    for u in "${UNITS[@]}"; do
-        systemctl enable "$u" && \
-
-
-        systemctl is-enabled "$u" || exit 1
-    done
-    echo Successfully enabled.
-}
-
-_install && \
-_setup_units
+echo Successfully installed.
