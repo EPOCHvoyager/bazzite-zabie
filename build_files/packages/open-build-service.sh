@@ -1,33 +1,41 @@
 #!/usr/bin/env bash
+. "${LIB_DIR}/dnf.sh"
 
 set ${CI:+-x} -euo pipefail
 
-_get_from_obs () {
-	local release ; release="$(rpm -E '%fedora')"
-	local repo_file ; repo_file="https://download.opensuse.org/repositories/${REPO}/Fedora_${release}/${REPO}.repo"
+_get_obs_repo () {
+    assert_single_argument "$@" || { printf 'Single argument required for Open Build Service repository file installation.\n' >&2 && return 1 ; }
+    local obs_project ; obs_project="$1" && readonly obs_project
 
-	dnf5 config-manager addrepo \
-		--from-repofile="${repo_file}"
-	dnf5 -y install \
-		"${PACKAGES[@]}"
-	dnf5 config-manager disable \
-		"${REPO//[!0-9a-zA-Z.-]/_}"
+    local release ; release="$(rpm -E '%fedora')" && readonly release
+    local obs_repo ; obs_repo="https://download.opensuse.org/repositories/${obs_project}/Fedora_${release}/${obs_project}.repo" && readonly obs_repo
+    local obs_repo_id ; obs_repo_id="${obs_repo//[!0-9a-zA-Z.-]/:}" && readonly obs_repo_id
 
+    dnf::add_repo "${obs_repo}" || return
+    dnf::disable_repo "${obs_repo_id}" || return
+}
 
-	rpm -V \
-		"${PACKAGES[@]}"
-	dnf5 repolist --disabled | grep -q "${REPO//[!0-9a-zA-Z.-]/_}"
-	unset -v REPO PACKAGES
+_obs_install () {
+    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for Open Build installation.\n' >&2 && return 1 ; }
+    local obs_project ; obs_project="$1" && readonly obs_project
+    shift
+    local -a packages ; packages=( "$@" ) && readonly packages
+
+    local obs_repo_id ; obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/:}" && readonly obs_repo_id
+
+    _get_obs_repo "${obs_project}" || return
+    echo "Installing packages from Open Build Service project ${obs_project}…" && \
+    dnf::external_install "${obs_repo_id}" "${packages[@]}" || return
 }
 
 echo Installing packages from Open Build Service…
 
-REPO="home:luisbocanegra"
-PACKAGES=( "plasma-panel-colorizer" "plasma-panel-spacer-extended" )
-_get_from_obs
+_obs_install \
+    "home:luisbocanegra" \
+    "plasma-panel-colorizer" "plasma-panel-spacer-extended"
 
-REPO="home:paulmcauley"
-PACKAGES=( "klassy" )
-_get_from_obs
+_obs_install \
+    "home:paulmcauley" \
+    "klassy"
 
 echo Successfully installed.
