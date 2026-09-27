@@ -2,15 +2,27 @@
 
 set ${CI:+-x} -euo pipefail
 
-export LIB_DIR="/ctx/lib"
+LIB_DIR="/ctx/lib" && readonly LIB_DIR ; export LIB_DIR
+. "${LIB_DIR}/parse.sh"
 
-UTILITY_DIR="/ctx/utilities"
+UTILITY_DIR="/ctx/utilities" && readonly UTILITY_DIR
 UTILITY_SCRIPTS=( \
     "${UTILITY_DIR}/copy-files.sh" \
     "${UTILITY_DIR}/install-packages.sh" \
     "${UTILITY_DIR}/remove-gamemode-config.sh" \
-)
+) && readonly UTILITY_SCRIPTS
 
-for script in "${UTILITY_SCRIPTS[@]}"; do
-    "$script" || exit 1
-done
+_run_utility_scripts () {
+    assert_arguments_passed "$@" || { printf 'No utility scripts provided.\n' >&2 && return 1 ; }
+    local -a scripts ; scripts=( "$@" ) && readonly scripts
+
+    echo Running utility scripts…
+
+    for script in "${scripts[@]}"; do
+        "$script" || return
+    done
+
+    echo Finished running utility scripts.
+}
+
+_run_utility_scripts "${UTILITY_SCRIPTS[@]}"
