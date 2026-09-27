@@ -19,7 +19,7 @@ _run_package_scripts () {
         "$script" && (( ++scripts_ran )) || return
     done
     readonly scripts_ran
-    _assert_all_scripts_ran "${scripts_ran}"
+    _assert_all_scripts_ran "${scripts_ran}" || return
 
     echo Package installation done.
 }
