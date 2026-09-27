@@ -19,7 +19,7 @@ _run_utility_scripts () {
     echo Running utility scripts…
 
     for script in "${scripts[@]}"; do
-        "$script" || return
+        echo "Running utility script ${script}…" && "$script" || return
     done
 
     echo Finished running utility scripts.
