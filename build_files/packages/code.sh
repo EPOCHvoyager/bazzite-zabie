@@ -13,7 +13,7 @@ REPO_ID="${PACKAGE}"                                            && readonly REPO
 REPO_NAME="Visual Studio Code"                                  && readonly REPO_NAME
 
 _import_key () {
-    assert_single_argument '$@' || { printf 'Single argument required for importing repository key.\n' >&2 && return 1 ; }
+    assert_single_argument "$@" || { printf 'Single argument required for importing repository key.\n' >&2 && return 1 ; }
     local repo_key ; repo_key="$@" && readonly repo_key
 
     rpm --import "${repo_key}" || return
