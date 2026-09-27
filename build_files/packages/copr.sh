@@ -23,7 +23,7 @@ _copr_install () {
     local copr_id ; copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}" && readonly copr_id
 
     _get_copr_repo "${copr}" || return
-    echo "Installing packages from the ${copr} Copr…" && \
+    echo "Installing packages from Copr ${copr}…" && \
     dnf::external_install "${copr_id}" "${packages[@]}" || return
 }
 
