@@ -10,7 +10,7 @@ main () {
 
 
     [[ ! -f "${CONFIG_PATH}" ]]
-    echo Successfully removed
+    echo Successfully removed.
 }
 
 main
