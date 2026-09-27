@@ -1,52 +1,38 @@
 #!/usr/bin/env bash
+. "${LIB_DIR}/dnf.sh"
+. "${LIB_DIR}/systemd.sh"
 
 set ${CI:+-x} -euo pipefail
 
-REPO_URL="https://repository.mullvad.net/rpm/stable/mullvad.repo"
-PACKAGE="mullvad-vpn"
-REPO_ID="mullvad-stable"
-UNITS=( "mullvad-daemon.service" "mullvad-early-boot-blocking.service" )
-OPTS=( "--setopt=tsflags=noscripts" )
-EXCLUDE_BIN="/usr/bin/mullvad-exclude"
-
-_install() {
-	echo Installing Mullvad VPN software…
-	dnf5 config-manager addrepo \
-		--from-repofile="${REPO_URL}"
-	dnf5 -y install \
-		"${OPTS[@]}" \
-		"${PACKAGE}"
-	dnf5 config-manager disable \
-		"${REPO_ID}"
-
-
-	rpm -V \
-		"${PACKAGE}"
-	dnf5 repolist --disabled | grep -q "${REPO_ID}"
-	echo Successfully installed.
-}
+REPO_URL="https://repository.mullvad.net/rpm/stable/mullvad.repo" ; readonly REPO_URL
+PACKAGE="mullvad-vpn" ; readonly PACKAGE
+REPO_ID="mullvad-stable" ; readonly REPO_ID
+UNITS=( "mullvad-daemon.service" "mullvad-early-boot-blocking.service" ) ; readonly UNITS
+EXCLUDE_BIN="/usr/bin/mullvad-exclude" ; readonly EXCLUDE_BIN
 
 _add_permissions() {
-	echo Adding permissions…
-	# This is normally handled by an install scriptlet.
-	chmod u+s "${EXCLUDE_BIN}"
+    echo Adding permissions…
+    chmod u+s "${EXCLUDE_BIN}" || return
 
 
-	[[ $( stat --format='%a' "${EXCLUDE_BIN}" ) = "4755" ]]
-	echo Successfully added.
+    [[ $( stat --format='%a' "${EXCLUDE_BIN}" ) = "4755" ]] || return
+    echo Successfully added.
 }
 
-_setup_units() {
-	echo Enabling service units…
-    for u in "${UNITS[@]}"; do
-        systemctl enable "$u" && \
+echo Installing Mullvad VPN software…
 
+dnf::add_repo \
+    "${REPO_URL}"
 
-        systemctl is-enabled "$u" || exit 1
-    done
-	echo Successfully enabled.
-}
+DNF_INSTALL_OPTS=( "--setopt=tsflags=noscripts" )
+dnf::external_install \
+    "${REPO_ID}" \
+    "${PACKAGE}"
+unset -v DNF_INSTALL_OPTS
 
-_install && \
-_add_permissions && \
-_setup_units
+systemd::enable_units \
+    "${UNITS[@]}"
+
+_add_permissions
+
+echo Successfully installed.
