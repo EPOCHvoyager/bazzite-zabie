@@ -25,4 +25,8 @@ _run_utility_scripts () {
     echo Finished running utility scripts.
 }
 
-_run_utility_scripts "${UTILITY_SCRIPTS[@]}"
+main () {
+    _run_utility_scripts "${UTILITY_SCRIPTS[@]}" || return
+}
+
+main

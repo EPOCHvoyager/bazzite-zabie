@@ -19,20 +19,24 @@ _add_permissions () {
     echo Successfully added.
 }
 
-echo Installing Mullvad VPN software…
+main () {
+    echo Installing Mullvad VPN software…
 
-dnf::add_repo \
-    "${REPO_URL}"
+    dnf::add_repo \
+        "${REPO_URL}" || return
 
-DNF_INSTALL_OPTS=( "--setopt=tsflags=noscripts" )
-dnf::external_install \
-    "${REPO_ID}" \
-    "${PACKAGE}"
-unset -v DNF_INSTALL_OPTS
+    DNF_INSTALL_OPTS=( "--setopt=tsflags=noscripts" ) || return
+    dnf::external_install \
+        "${REPO_ID}" \
+        "${PACKAGE}" || return
+    unset -v DNF_INSTALL_OPTS || return
 
-systemd::enable_units \
-    "${UNITS[@]}"
+    systemd::enable_units \
+        "${UNITS[@]}" || return
 
-_add_permissions
+    _add_permissions || return
 
-echo Successfully installed.
+    echo Successfully installed.
+}
+
+main

@@ -33,4 +33,8 @@ _assert_all_scripts_ran () {
     (( ${scripts_ran} == ${script_count} )) || return
 }
 
-_run_package_scripts "${SCRIPTS[@]}"
+main () {
+    _run_package_scripts "${SCRIPTS[@]}" || return
+}
+
+main

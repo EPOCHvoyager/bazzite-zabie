@@ -8,18 +8,22 @@ REPO_ID="terra" && readonly REPO_ID
 PACKAGES=( "coolercontrol" ) && readonly PACKAGES
 UNITS=( "coolercontrold.service" ) && readonly UNITS
 
-echo Installing packages from Terra…
+main () {
+    echo Installing packages from Terra…
 
-DNF_INSTALL_OPTS=( \
-    "--setopt=tsflags=noscripts" \
-    "--setopt=install_weak_deps=True" \
-)
-dnf::external_install \
-    "${REPO_ID}" \
-    "${PACKAGES}"
-unset -v DNF_INSTALL_OPTS
+    DNF_INSTALL_OPTS=( \
+        "--setopt=tsflags=noscripts" \
+        "--setopt=install_weak_deps=True" \
+    ) || return
+    dnf::external_install \
+        "${REPO_ID}" \
+        "${PACKAGES}" || return
+    unset -v DNF_INSTALL_OPTS || return
 
-systemd::enable_units \
-    "${UNITS[@]}"
+    systemd::enable_units \
+        "${UNITS[@]}" || return
 
-echo Successfully installed.
+    echo Successfully installed.
+}
+
+main

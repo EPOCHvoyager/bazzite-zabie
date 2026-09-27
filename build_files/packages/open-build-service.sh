@@ -28,14 +28,18 @@ _obs_install () {
     dnf::external_install "${obs_repo_id}" "${packages[@]}" || return
 }
 
-echo Installing packages from Open Build Service…
+main () {
+    echo Installing packages from Open Build Service…
 
-_obs_install \
-    "home:luisbocanegra" \
-    "plasma-panel-colorizer" "plasma-panel-spacer-extended"
+    _obs_install \
+        "home:luisbocanegra" \
+        "plasma-panel-colorizer" "plasma-panel-spacer-extended" || return
 
-_obs_install \
-    "home:paulmcauley" \
-    "klassy"
+    _obs_install \
+        "home:paulmcauley" \
+        "klassy" || return
 
-echo Successfully installed.
+    echo Successfully installed.
+}
+
+main

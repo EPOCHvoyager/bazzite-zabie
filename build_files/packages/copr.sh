@@ -27,22 +27,26 @@ _copr_install () {
     dnf::external_install "${copr_id}" "${packages[@]}" || return
 }
 
-echo Installing packages from Copr…
+main () {
+    echo Installing packages from Copr…
 
-_copr_install \
-    "bieszczaders/kernel-cachyos-addons" \
-    "scx-manager"
+    _copr_install \
+        "bieszczaders/kernel-cachyos-addons" \
+        "scx-manager" || return
 
-DNF_INSTALL_OPTS=( "--allowerasing" ) # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
-_copr_install \
-    "sirlucjan/scx-scheds-cargo" \
-    "scx-scheds-git" "scx-tools-git"
-unset -v DNF_INSTALL_OPTS
+    DNF_INSTALL_OPTS=( "--allowerasing" ) || return # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
+    _copr_install \
+        "sirlucjan/scx-scheds-cargo" \
+        "scx-scheds-git" "scx-tools-git" || return
+    unset -v DNF_INSTALL_OPTS || return
 
-DNF_INSTALL_OPTS=( "--disablerepo=fedora,updates,updates-archive" ) # Avoid dependency resolution mixing Plasma version packages when upstream is behind Fedora
-_copr_install \
-    "infinality/kwin-effects-better-blur-dx" \
-    "kwin-effects-better-blur-dx"
-unset -v DNF_INSTALL_OPTS
+    DNF_INSTALL_OPTS=( "--disablerepo=fedora,updates,updates-archive" ) || return # Avoid dependency resolution mixing Plasma version packages when upstream is behind Fedora
+    _copr_install \
+        "infinality/kwin-effects-better-blur-dx" \
+        "kwin-effects-better-blur-dx" || return
+    unset -v DNF_INSTALL_OPTS || return
 
-echo Successfully installed.
+    echo Successfully installed.
+}
+
+main

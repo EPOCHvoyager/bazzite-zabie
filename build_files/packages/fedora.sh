@@ -17,17 +17,21 @@ UNITS=( \
     "realtime-entsk.service" \
 ) && readonly UNITS
 
-echo Installing packages from Fedora…
+main () {
+    echo Installing packages from Fedora…
 
-DNF_INSTALL_OPTS=( \
-    "--setopt=tsflags=noscripts" \
-    "--setopt=install_weak_deps=True" \
-)
-dnf::install \
-    "${PACKAGES[@]}"
-unset -v DNF_INSTALL_OPTS
+    DNF_INSTALL_OPTS=( \
+        "--setopt=tsflags=noscripts" \
+        "--setopt=install_weak_deps=True" \
+    ) || return
+    dnf::install \
+        "${PACKAGES[@]}" || return
+    unset -v DNF_INSTALL_OPTS || return
 
-systemd::enable_units \
-    "${UNITS[@]}"
+    systemd::enable_units \
+        "${UNITS[@]}" || return
 
-echo Successfully installed.
+    echo Successfully installed.
+}
+
+main
