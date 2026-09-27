@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+. "${LIB_DIR}/dnf.sh"
 
 set ${CI:+-x} -euo pipefail
 
@@ -17,21 +18,15 @@ cat << EOF > "${REPO_PATH}"/"${REPO_FILE}"
 [${REPO_ID}]
 name=Visual Studio Code
 baseurl=${REPO_BASE_URL}
-enabled=1
+enabled=0
 autorefresh=1
 type=rpm-md
 gpgcheck=1
 gpgkey=${REPO_KEY}
 EOF
 
-dnf5 -y install \
+dnf::external_install \
+    "${REPO_ID}" \
     "${PACKAGE}"
-dnf5 config-manager disable \
-    "${REPO_ID}"
-
-
-rpm -V \
-    "${PACKAGE}"
-dnf5 repolist --disabled | grep -q "${REPO_ID}"
 
 echo Successfully installed.
