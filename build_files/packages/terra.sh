@@ -16,7 +16,7 @@ main () {
     echo "Installing packages from Terra…" && \
     dnf::external_install \
         "${REPO_ID}" \
-        "${PACKAGES}" \
+        "${PACKAGES[@]}" \
         && echo "Successfully installed packages from Terra." || return
     unset -v DNF_INSTALL_OPTS || return
 
