@@ -31,11 +31,8 @@ _copr_install () {
 }
 
 main () {
-    _copr_install \
-        "bieszczaders/kernel-cachyos-addons" \
-        "scx-manager" || return
-
-    DNF_INSTALL_OPTS=( "--allowerasing" ) || return # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
+    # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
+    DNF_INSTALL_OPTS=( "--allowerasing" ) || return
     _copr_install \
         "sirlucjan/scx-scheds-cargo" \
         "scx-scheds-git" "scx-tools-git" || return
