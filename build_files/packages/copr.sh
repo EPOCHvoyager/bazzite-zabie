@@ -41,7 +41,8 @@ main () {
         "scx-scheds-git" "scx-tools-git" || return
     unset -v DNF_INSTALL_OPTS || return
 
-    DNF_INSTALL_OPTS=( "--disablerepo=fedora,updates,updates-archive" ) || return # Avoid dependency resolution mixing Plasma version packages when upstream is behind Fedora
+    # Avoid dependency resolution from performing partial Plasma upgrades, when upstream is behind Fedora.
+    DNF_INSTALL_OPTS=( "--disablerepo=fedora,updates,updates-archive" ) || return
     _copr_install \
         "infinality/kwin-effects-better-blur-dx" \
         "kwin-effects-better-blur-dx" || return
