@@ -7,10 +7,10 @@ _get_copr_repo () {
     assert_single_argument "$@" || { printf 'Single argument required for Copr repository file installation.\n' >&2 && return 1 ; }
     local copr ; copr="$1" ; readonly copr
 
-    local copr_id ; copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}" ; readonly copr_id
-
     dnf5 -y copr enable \
         "${copr}" || return
+
+    local copr_id ; copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}" ; readonly copr_id
     dnf::disable_repo "${copr_id}" || return
 }
 
