@@ -20,16 +20,17 @@ _copr_install () {
     shift
     local -a packages ; packages=( "$@" ) ; readonly packages
 
-    local copr_id ; copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}" && readonly copr_id
-
     _get_copr_repo "${copr}" || return
+
+    local copr_id ; copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}" && readonly copr_id
     echo "Installing packages from Copr ${copr}…" && \
-    dnf::external_install "${copr_id}" "${packages[@]}" || return
+    dnf::external_install \
+        "${copr_id}" \
+        "${packages[@]}" \
+    && echo "Successfully installed packages from ${copr}." || return
 }
 
 main () {
-    echo Installing packages from Copr…
-
     _copr_install \
         "bieszczaders/kernel-cachyos-addons" \
         "scx-manager" || return
@@ -45,8 +46,6 @@ main () {
         "infinality/kwin-effects-better-blur-dx" \
         "kwin-effects-better-blur-dx" || return
     unset -v DNF_INSTALL_OPTS || return
-
-    echo Successfully installed.
 }
 
 main

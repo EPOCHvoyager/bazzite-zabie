@@ -21,16 +21,17 @@ _obs_install () {
     shift
     local -a packages ; packages=( "$@" ) && readonly packages
 
-    local obs_repo_id ; obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/_}" && readonly obs_repo_id
+    _get_obs_repo "${obs_project}" || return
 
-    _get_obs_repo           "${obs_project}" || return
+    local obs_repo_id ; obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/_}" && readonly obs_repo_id
     echo "Installing packages from Open Build Service project ${obs_project}…" && \
-    dnf::external_install   "${obs_repo_id}" "${packages[@]}" || return
+    dnf::external_install \
+        "${obs_repo_id}" \
+        "${packages[@]}" \
+    && echo "Successfully installed packages from ${obs_project}." || return
 }
 
 main () {
-    echo Installing packages from Open Build Service…
-
     _obs_install \
         "home:luisbocanegra" \
         "plasma-panel-colorizer" "plasma-panel-spacer-extended" || return
@@ -38,8 +39,6 @@ main () {
     _obs_install \
         "home:paulmcauley" \
         "klassy" || return
-
-    echo Successfully installed.
 }
 
 main
