@@ -13,15 +13,12 @@ _run_package_scripts () {
 
     local scripts_ran ; scripts_ran=0
 
-    echo Installing packages…
-
     for script in "${scripts[@]}"; do
+        echo "Running package installation script ${script}…" && \
         "$script" && (( ++scripts_ran )) || return
     done
     readonly scripts_ran
     _assert_all_scripts_ran "${scripts_ran}" || return
-
-    echo Package installation done.
 }
 
 _assert_all_scripts_ran () {
@@ -30,7 +27,7 @@ _assert_all_scripts_ran () {
 
     local script_count ; script_count=${#SCRIPTS[@]} && readonly script_count
 
-    (( ${scripts_ran} == ${script_count} )) || return
+    (( ${scripts_ran} == ${script_count} )) && echo "Package installation done." || return
 }
 
 main () {

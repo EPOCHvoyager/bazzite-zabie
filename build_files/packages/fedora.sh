@@ -18,20 +18,18 @@ UNITS=( \
 ) && readonly UNITS
 
 main () {
-    echo Installing packages from Fedora…
-
     DNF_INSTALL_OPTS=( \
         "--setopt=tsflags=noscripts" \
         "--setopt=install_weak_deps=True" \
     ) || return
+    echo "Installing packages from Fedora…" && \
     dnf::install \
-        "${PACKAGES[@]}" || return
+        "${PACKAGES[@]}" \
+    && echo "Successfully installed." || return
     unset -v DNF_INSTALL_OPTS || return
 
     systemd::enable_units \
         "${UNITS[@]}" || return
-
-    echo Successfully installed.
 }
 
 main

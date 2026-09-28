@@ -48,13 +48,11 @@ main () {
         "${REPO_BASE_URL}" \
         "${REPO_KEY}" || return
 
-    echo Installing Visual Studio Code…
-
+    echo "Installing Visual Studio Code…" && \
     dnf::external_install \
         "${REPO_ID}" \
-        "${PACKAGE}" || return
-
-    echo Successfully installed.
+        "${PACKAGE}" \
+    && echo "Successfully installed." || return
 }
 
 main

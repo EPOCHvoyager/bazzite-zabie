@@ -11,32 +11,30 @@ UNITS=( "mullvad-daemon.service" "mullvad-early-boot-blocking.service" )    && r
 EXCLUDE_BIN="/usr/bin/mullvad-exclude"                                      && readonly EXCLUDE_BIN
 
 _add_permissions () {
-    echo Adding permissions…
+    echo "Adding permissions…" && \
     chmod u+s "${EXCLUDE_BIN}" || return
 
 
-    [[ $( stat --format='%a' "${EXCLUDE_BIN}" ) = "4755" ]] || return
-    echo Successfully added.
+    [[ $( stat --format='%a' "${EXCLUDE_BIN}" ) = "4755" ]] \
+    && echo "Successfully added." || return
 }
 
 main () {
-    echo Installing Mullvad VPN software…
-
     dnf::add_repo \
         "${REPO_URL}" || return
 
     DNF_INSTALL_OPTS=( "--setopt=tsflags=noscripts" ) || return
+    echo "Installing Mullvad VPN software…" && \
     dnf::external_install \
         "${REPO_ID}" \
-        "${PACKAGE}" || return
+        "${PACKAGE}" \
+        && echo "Successfully installed." || return
     unset -v DNF_INSTALL_OPTS || return
 
     systemd::enable_units \
         "${UNITS[@]}" || return
 
     _add_permissions || return
-
-    echo Successfully installed.
 }
 
 main
