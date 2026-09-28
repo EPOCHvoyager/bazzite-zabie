@@ -8,7 +8,7 @@ PACKAGE_DIR="/ctx/packages" && readonly PACKAGE_DIR
 shopt -s nullglob ; SCRIPTS=( "${PACKAGE_DIR}"/*.sh ) && readonly SCRIPTS ; shopt -u nullglob
 
 _run_package_scripts () {
-    assert_arguments_passed "$@" || { printf 'No scripts provided for package installation.\n' >&2 && return 1 ; }
+    assert_arguments_passed "$@" || { printf 'No scripts provided for package script execution.\n' >&2 && return 1 ; }
     local -a scripts ; scripts=( "$@" ) && readonly scripts
 
     local scripts_ran ; scripts_ran=0
