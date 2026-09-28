@@ -5,10 +5,10 @@ systemd::enable_units () {
     assert_arguments_passed "$@" || { printf 'No arguments provided for service unit enabling.\n' >&2 && return 1 ; }
     local units ; units=( "$@" ) && readonly units
 
-    for u in "${units[@]}"; do
+    for unit in "${units[@]}"; do
         echo "Enabling unit ${u}…" && \
-        systemctl enable "$u" || return
-        systemctl is-enabled "$u" \
+        systemctl enable "$unit" || return
+        systemctl is-enabled "$unit" \
         && echo "Successfully enabled." || return
     done
 }
