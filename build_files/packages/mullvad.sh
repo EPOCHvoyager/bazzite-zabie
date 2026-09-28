@@ -28,7 +28,7 @@ main () {
     dnf::external_install \
         "${REPO_ID}" \
         "${PACKAGE}" \
-        && echo "Successfully installed." || return
+        && echo "Mullvad VPN software successfully installed." || return
     unset -v DNF_INSTALL_OPTS || return
 
     systemd::enable_units \

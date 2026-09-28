@@ -17,7 +17,7 @@ main () {
     dnf::external_install \
         "${REPO_ID}" \
         "${PACKAGES}" \
-        && echo "Successfully installed." || return
+        && echo "Successfully installed packages from Terra." || return
     unset -v DNF_INSTALL_OPTS || return
 
     systemd::enable_units \

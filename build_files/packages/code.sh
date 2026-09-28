@@ -52,7 +52,7 @@ main () {
     dnf::external_install \
         "${REPO_ID}" \
         "${PACKAGE}" \
-    && echo "Successfully installed." || return
+    && echo "Successfully installed Visual Studio Code." || return
 }
 
 main

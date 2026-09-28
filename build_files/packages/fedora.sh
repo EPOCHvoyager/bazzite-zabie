@@ -25,7 +25,7 @@ main () {
     echo "Installing packages from Fedora…" && \
     dnf::install \
         "${PACKAGES[@]}" \
-    && echo "Successfully installed." || return
+    && echo "Successfully installed packages from Fedora." || return
     unset -v DNF_INSTALL_OPTS || return
 
     systemd::enable_units \
