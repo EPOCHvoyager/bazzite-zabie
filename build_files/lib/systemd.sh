@@ -6,7 +6,9 @@ systemd::enable_units () {
     local units ; units=( "$@" ) && readonly units
 
     for u in "${units[@]}"; do
+        echo "Enabling unit ${u}…" && \
         systemctl enable "$u" || return
-        systemctl is-enabled "$u" || return
+        systemctl is-enabled "$u" \
+        && echo "Successfully enabled." || return
     done
 }
