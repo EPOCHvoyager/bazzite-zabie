@@ -37,7 +37,7 @@ _obs_install () {
     local obs_repo_id ; obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/_}" && readonly obs_repo_id
     echo "Installing packages from Open Build Service project ${obs_project}…" && \
     dnf::external_install \
-        "${reconstructed_opts[@]}"
+        "${reconstructed_opts[@]}" \
         "${obs_repo_id}" \
         "${packages[@]}" \
     && echo "Successfully installed packages from ${obs_project}." || return
