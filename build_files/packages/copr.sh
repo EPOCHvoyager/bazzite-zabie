@@ -16,6 +16,18 @@ _get_copr_repo () {
 
 _copr_install () {
     assert_multiple_arguments "$@" || { printf 'Multiple arguments required for Copr installation.\n' >&2 && return 1 ; }
+
+    local -a dnf_opts ; local opts_consumed
+    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
+    readonly dnf_opts opts_consumed
+    shift "${opts_consumed}"
+
+    local -a reconstructed_opts
+    dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
+    readonly reconstructed_opts
+
+    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for Copr installation.\n' >&2 && return 1 ; }
+
     local copr ; copr="$1" && readonly copr
     shift
     local -a packages ; packages=( "$@" ) ; readonly packages
@@ -25,6 +37,7 @@ _copr_install () {
     local copr_id ; copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}" && readonly copr_id
     echo "Installing packages from Copr ${copr}…" && \
     dnf::external_install \
+        "${reconstructed_opts[@]}" \
         "${copr_id}" \
         "${packages[@]}" \
     && echo "Successfully installed packages from ${copr}." || return

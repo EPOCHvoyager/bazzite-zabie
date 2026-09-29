@@ -17,6 +17,17 @@ _get_obs_repo () {
 
 _obs_install () {
     assert_multiple_arguments "$@" || { printf 'Multiple arguments required for Open Build installation.\n' >&2 && return 1 ; }
+
+    local -a dnf_opts ; local opts_consumed
+    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
+    readonly dnf_opts opts_consumed
+    shift "${opts_consumed}"
+
+    local -a reconstructed_opts
+    dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
+    readonly reconstructed_opts
+
+    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for Open Build installation.\n' >&2 && return 1 ; }
     local obs_project ; obs_project="$1"  && readonly obs_project
     shift
     local -a packages ; packages=( "$@" ) && readonly packages
@@ -26,6 +37,7 @@ _obs_install () {
     local obs_repo_id ; obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/_}" && readonly obs_repo_id
     echo "Installing packages from Open Build Service project ${obs_project}…" && \
     dnf::external_install \
+        "${reconstructed_opts[@]}"
         "${obs_repo_id}" \
         "${packages[@]}" \
     && echo "Successfully installed packages from ${obs_project}." || return
