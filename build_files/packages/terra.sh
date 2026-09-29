@@ -11,10 +11,10 @@ UNITS=( "coolercontrold.service" )  && readonly UNITS
 main () {
     echo "Installing packages from Terra…" && \
     dnf::external_install \
-        "${REPO_ID}" \
-        "${PACKAGES[@]}" \
         -o "--setopt=tsflags=noscripts" \
         -o "--setopt=install_weak_deps=True" \
+        "${REPO_ID}" \
+        "${PACKAGES[@]}" \
     && echo "Successfully installed packages from Terra." || return
 
     systemd::enable_units \

@@ -20,9 +20,9 @@ UNITS=( \
 main () {
     echo "Installing packages from Fedora…" && \
     dnf::install \
-        "${PACKAGES[@]}" \
         -o "--setopt=tsflags=noscripts" \
         -o "--setopt=install_weak_deps=True" \
+        "${PACKAGES[@]}" \
     && echo "Successfully installed packages from Fedora." || return
 
     systemd::enable_units \
