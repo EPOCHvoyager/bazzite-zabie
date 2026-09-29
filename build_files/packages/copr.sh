@@ -30,7 +30,7 @@ _copr_install () {
 
     local copr ; copr="$1" && readonly copr
     shift
-    local -a packages ; packages=( "$@" ) ; readonly packages
+    local -a packages ; packages=( "$@" ) && readonly packages
 
     _get_copr_repo "${copr}" || return
 
