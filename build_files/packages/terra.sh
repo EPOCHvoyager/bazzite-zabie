@@ -9,16 +9,13 @@ PACKAGES=( "coolercontrol" )        && readonly PACKAGES
 UNITS=( "coolercontrold.service" )  && readonly UNITS
 
 main () {
-    DNF_INSTALL_OPTS=( \
-        "--setopt=tsflags=noscripts" \
-        "--setopt=install_weak_deps=True" \
-    ) || return
     echo "Installing packages from Terra…" && \
     dnf::external_install \
+        -o "--setopt=tsflags=noscripts" \
+        -o "--setopt=install_weak_deps=True" \
         "${REPO_ID}" \
         "${PACKAGES[@]}" \
-        && echo "Successfully installed packages from Terra." || return
-    unset -v DNF_INSTALL_OPTS || return
+    && echo "Successfully installed packages from Terra." || return
 
     systemd::enable_units \
         "${UNITS[@]}" || return

@@ -32,18 +32,16 @@ _copr_install () {
 
 main () {
     # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
-    DNF_INSTALL_OPTS=( "--allowerasing" ) || return
     _copr_install \
+        -o "--allowerasing" \
         "sirlucjan/scx-scheds-cargo" \
         "scx-scheds-git" "scx-tools-git" || return
-    unset -v DNF_INSTALL_OPTS || return
 
-    # Avoid dependency resolution from performing partial Plasma upgrades, when upstream is behind Fedora.
-    DNF_INSTALL_OPTS=( "--disablerepo=fedora,updates,updates-archive" ) || return
+    # Disable default repos to bar dependency resolution from performing partial Plasma upgrades, in case upstream is behind Fedora.
     _copr_install \
+        -o "--disablerepo=fedora,updates,updates-archive" \
         "infinality/kwin-effects-better-blur-dx" \
         "kwin-effects-better-blur-dx" || return
-    unset -v DNF_INSTALL_OPTS || return
 }
 
 main

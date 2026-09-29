@@ -35,29 +35,73 @@ dnf::assert_repo_disabled () {
         'length == 1 and .[0].id == $id and .[0].is_enabled == false' <<< "${repo_json}" || return
 }
 
+_dnf::parse_opts () {
+    assert_multiple_arguments "$@" || { printf 'Destination variables required for parsing dnf installation options.\n' >&2 && return 1 ; }
+
+    local -n opts="$1"
+    local -n consumed="$2"
+    shift 2
+
+    opts=()
+    local opt
+    local OPTARG
+
+    local OPTIND ; OPTIND=1
+    while getopts ":o:" opt; do
+        case "$opt" in
+            o)
+                opts+=( "$OPTARG" )
+                ;;
+            :)
+                printf 'Argument required for option -%s.\n' "$OPTARG" >&2
+                return 2
+                ;;
+            \?)
+                printf 'Unrecognized option: -%s\n' "$OPTARG" >&2
+                return 2
+                ;;
+        esac
+    done
+    consumed="$((OPTIND - 1))"
+}
+
 dnf::install () {
     assert_arguments_passed "$@" || { printf 'No arguments provided for dnf package installation.\n' >&2 && return 1 ; }
+
+    local -a dnf_opts ; local opts_consumed
+    _dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
+    readonly dnf_opts opts_consumed
+    shift "${opts_consumed}"
+
+    assert_arguments_passed "$@" || { printf 'No packages provided for dnf installation.\n' >&2 && return 1 ; }
+
     local packages ; packages=( "$@" ) && readonly packages
-    if [[ -z "${repo_enable+x}" ]]; then
-            :
-        else
-            local enable_repo ; enable_repo="${repo_enable}" && readonly enable_repo
-    fi
 
     dnf5 -y install \
-        ${DNF_INSTALL_OPTS:+"${DNF_INSTALL_OPTS[@]}"} \
-        ${enable_repo:+"${enable_repo}"} \
+        "${dnf_opts[@]}" \
         "${packages[@]}" || return
     rpm -V \
         "${packages[@]}" || return
 }
 
-dnf::external_install() {
+dnf::external_install () {
+    local -a dnf_opts ; local opts_consumed
+    _dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
+    readonly dnf_opts opts_consumed
+    shift "${opts_consumed}"
+
     assert_multiple_arguments "$@" || { printf 'Multiple arguments required for external repository installation.\n' >&2 && return 1 ; }
     local repository ; repository="$1" && readonly repository
     shift
-    local -a packages ; packages=( "$@" ) && readonly packages
-    local repo_enable ; repo_enable="--enable-repo=${repository}" && readonly repo_enable
 
-    dnf::install "${packages[@]}" || return
+    assert_arguments_passed "$@" || { printf 'No packages provided for external repository installation.\n' >&2 && return 1 ; }
+    local -a packages ; packages=( "$@" ) && readonly packages
+
+    local -a raw_opts
+    for opt in "${dnf_opts[@]}"; do
+        raw_opts+=( -o "$opt" )
+    done
+    readonly raw_opts
+
+    dnf::install -o "--enable-repo=${repository}" "${raw_opts[@]}" "${packages[@]}" || return
 }

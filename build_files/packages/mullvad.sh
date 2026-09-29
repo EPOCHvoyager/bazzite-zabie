@@ -23,13 +23,12 @@ main () {
     dnf::add_repo \
         "${REPO_URL}" || return
 
-    DNF_INSTALL_OPTS=( "--setopt=tsflags=noscripts" ) || return
     echo "Installing Mullvad VPN software…" && \
     dnf::external_install \
+        -o "--setopt=tsflags=noscripts" \
         "${REPO_ID}" \
         "${PACKAGE}" \
-        && echo "Mullvad VPN software successfully installed." || return
-    unset -v DNF_INSTALL_OPTS || return
+    && echo "Mullvad VPN software successfully installed." || return
 
     systemd::enable_units \
         "${UNITS[@]}" || return
