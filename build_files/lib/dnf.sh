@@ -85,6 +85,8 @@ dnf::install () {
 }
 
 dnf::external_install () {
+    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for external repository installation.\n' >&2 && return 1 ; }
+
     local -a dnf_opts ; local opts_consumed
     _dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
     readonly dnf_opts opts_consumed
