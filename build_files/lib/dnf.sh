@@ -92,6 +92,12 @@ dnf::external_install () {
     readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
+    local -a passthrough_opts
+    for opt in "${dnf_opts[@]}"; do
+        passthrough_opts+=( -o "$opt" )
+    done
+    readonly passhthrough_opts
+
     assert_multiple_arguments "$@" || { printf 'Multiple arguments required for external repository installation.\n' >&2 && return 1 ; }
     local repository ; repository="$1" && readonly repository
     shift
@@ -99,11 +105,5 @@ dnf::external_install () {
     assert_arguments_passed "$@" || { printf 'No packages provided for external repository installation.\n' >&2 && return 1 ; }
     local -a packages ; packages=( "$@" ) && readonly packages
 
-    local -a raw_opts
-    for opt in "${dnf_opts[@]}"; do
-        raw_opts+=( -o "$opt" )
-    done
-    readonly raw_opts
-
-    dnf::install -o "--enable-repo=${repository}" "${raw_opts[@]}" "${packages[@]}" || return
+    dnf::install -o "--enable-repo=${repository}" "${packages[@]}" "${passthrough_opts[@]}" || return
 }
