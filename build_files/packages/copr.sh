@@ -31,17 +31,17 @@ _copr_install () {
 }
 
 main () {
-    # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
     _copr_install \
-        -o "--allowerasing" \
         "sirlucjan/scx-scheds-cargo" \
-        "scx-scheds-git" "scx-tools-git" || return
+        "scx-scheds-git" "scx-tools-git" \
+        -o "--allowerasing" || return
+        # Use Piotr's Copr, as it is more actively maintained than the one pulled in the base image.
 
-    # Disable default repos to bar dependency resolution from performing partial Plasma upgrades, in case upstream is behind Fedora.
     _copr_install \
-        -o "--disablerepo=fedora,updates,updates-archive" \
         "infinality/kwin-effects-better-blur-dx" \
         "kwin-effects-better-blur-dx" || return
+        -o "--disablerepo=fedora,updates,updates-archive" \
+        # Disable default repos to prevent dependency resolution from performing partial Plasma upgrades, in case upstream is behind Fedora.
 }
 
 main

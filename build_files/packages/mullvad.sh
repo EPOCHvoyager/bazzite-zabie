@@ -25,9 +25,9 @@ main () {
 
     echo "Installing Mullvad VPN software…" && \
     dnf::external_install \
-        -o "--setopt=tsflags=noscripts" \
         "${REPO_ID}" \
         "${PACKAGE}" \
+        -o "--setopt=tsflags=noscripts" \
     && echo "Mullvad VPN software successfully installed." || return
 
     systemd::enable_units \
