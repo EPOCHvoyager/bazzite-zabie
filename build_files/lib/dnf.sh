@@ -35,7 +35,7 @@ dnf::assert_repo_disabled () {
         'length == 1 and .[0].id == $id and .[0].is_enabled == false' <<< "${repo_json}" || return
 }
 
-_dnf::parse_opts () {
+dnf::parse_opts () {
     assert_multiple_arguments "$@" || { printf 'Destination variables required for parsing dnf installation options.\n' >&2 && return 1 ; }
 
     local -n opts="$1"
@@ -69,7 +69,7 @@ dnf::install () {
     assert_arguments_passed "$@" || { printf 'No arguments provided for dnf package installation.\n' >&2 && return 1 ; }
 
     local -a dnf_opts ; local opts_consumed
-    _dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
+    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
     readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
@@ -88,7 +88,7 @@ dnf::external_install () {
     assert_multiple_arguments "$@" || { printf 'Multiple arguments required for external repository installation.\n' >&2 && return 1 ; }
 
     local -a dnf_opts ; local opts_consumed
-    _dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
+    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
     readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
