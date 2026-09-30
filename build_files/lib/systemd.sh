@@ -2,7 +2,12 @@
 . "${LIB_DIR}/parse.sh"
 
 systemd::enable_units () {
-    assert_arguments_passed "$@" || { printf 'No arguments provided for service unit enabling.\n' >&2 && return 1 ; }
+    assert_arguments_passed "$@" || {
+        printf '%s:%s: No arguments provided for enabling service units.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
     local units ; units=( "$@" ) && readonly units
 
     for unit in "${units[@]}"; do

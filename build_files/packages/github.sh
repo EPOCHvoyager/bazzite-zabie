@@ -4,10 +4,15 @@
 set ${CI:+-x} -euo pipefail
 
 _retrieve_api_json () {
-    assert_single_argument "$@" || { printf "Repository required for retrieving a JSON from the GitHub API.\n" >&2 && return 1 ; }
+    assert_single_argument "$@" || {
+        printf '%s:%s: Single argument required to retrieve latest release JSON from the GitHub API.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
     local repo ;  repo="$1"  && readonly repo
 
-    local api_url ; api_url="https://api.github.com/repos/${repo}/releases/latest" && readonly api_url
+    local api_url ;  api_url="https://api.github.com/repos/${repo}/releases/latest"  && readonly api_url
 
     curl \
     --compressed \
@@ -25,7 +30,11 @@ _retrieve_api_json () {
 }
 
 _get_asset_data () {
-    assert_argument_count 2 "$@" || { printf 'Two arguments necessary to obtain GitHub asset data.\n' >&2 && return 1 ; }
+    assert_argument_count 2 "$@" || {
+        printf '%s:%s: Two arguments required to obtain GitHub asset data.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local json    ;  json="$1"     && readonly json
     local pattern ;  pattern="$2"  && readonly pattern
@@ -41,10 +50,14 @@ _get_asset_data () {
 }
 
 _get_download_data () {
-    assert_argument_count 4 "$@" || { printf 'Two arguments and two destination variables required for obtaining download data.\n' >&2 && return 1 ; }
+    assert_argument_count 4 "$@" || {
+        printf '%s:%s: Four arguments required to obtain latest GitHub release download data.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
-    local repo                      ;   repo="$1"           && readonly repo
-    local pattern                   ;   pattern="$2"        && readonly pattern
+    local repo                      ;   repo="$1"                   && readonly repo
+    local pattern                   ;   pattern="$2"                && readonly pattern
     local -n output_download_url    ;   output_download_url="$3"
     local -n output_asset_digest    ;   output_asset_digest="$4"
 
@@ -59,12 +72,20 @@ _get_download_data () {
 }
 
 _verify_download () {
-    assert_argument_count 2 "$@" || { printf '.\n' >&2 && return 1 ; }
+    assert_argument_count 2 "$@" || {
+        printf '%s:%s: Two arguments required for download verification.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local file    ;   file="$1"     && readonly file
     local digest  ;   digest="$2"   && readonly digest
 
-    [[ "${digest}" =~ ^sha256:[0-9a-fA-F]{64}$ ]] || { printf 'Unsupported or invalid checksum: %s\n' "${digest}" >&2 && return 1 ; }
+    [[ "${digest}" =~ ^sha256:[0-9a-fA-F]{64}$ ]] || {
+        printf '%s:%s: Unsupported or invalid checksum: %s\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" "${digest}" >&2
+        return 1
+    }
 
     local expected_sha256 ; expected_sha256="${digest#sha256:}" && readonly expected_sha256
 
@@ -73,7 +94,11 @@ _verify_download () {
 }
 
 _download_rpm () {
-    assert_argument_count 3 "$@" || { printf 'Three arguments required downloading GitHub release RPM.\n' >&2 && return 1 ; }
+    assert_argument_count 3 "$@" || {
+        printf '%s:%s: Three arguments required to download GitHub release RPM.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local repo          ;   repo="$1"           && readonly repo
     local pattern       ;   pattern="$2"        && readonly pattern
@@ -95,7 +120,11 @@ _download_rpm () {
 }
 
 _install_latest_release () {
-    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for installing RPM from latest GitHub release.\n' >&2 && return 1 ; }
+    assert_multiple_arguments "$@" || {
+        printf '%s:%s: No arguments provided for installing an RPM from the latest GitHub release.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
@@ -106,7 +135,11 @@ _install_latest_release () {
     dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
     readonly reconstructed_opts
 
-    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for installing RPM from latest GitHub release.\n' >&2 && return 1 ; }
+    assert_argument_count 2 "$@" || {
+        printf '%s:%s: Two arguments required for installing an RPM from the latest GitHub release.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local repo    ;   repo="$1"      && readonly repo
     local pattern ;   pattern="$2"   && readonly pattern

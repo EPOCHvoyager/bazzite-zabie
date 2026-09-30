@@ -2,7 +2,12 @@
 . "${LIB_DIR}/parse.sh"
 
 dnf::add_repo () {
-    assert_single_argument "$@" || { printf 'Single argument required for adding repository through dnf.\n' >&2 && return 1 ; }
+    assert_single_argument "$@" || {
+        printf '%s:%s: Single argument required for adding repository through dnf.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
     local repo_file ; repo_file="$1" && readonly repo_file
 
     dnf5 config-manager addrepo \
@@ -10,7 +15,12 @@ dnf::add_repo () {
 }
 
 dnf::disable_repo () {
-    assert_single_argument "$@" || { printf 'Single argument required for disabling repository through dnf.\n' >&2 && return 1 ; }
+    assert_single_argument "$@" || {
+        printf '%s:%s: Single argument required for disabling repository through dnf.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
     local repo_id ; repo_id="$1" && readonly repo_id
 
     dnf5 config-manager disable \
@@ -19,14 +29,24 @@ dnf::disable_repo () {
 }
 
 dnf::get_repo_json () {
-    assert_single_argument "$@" || { printf 'Single argument required to query repository data from dnf.\n' >&2 && return 1 ; }
+    assert_single_argument "$@" || {
+        printf '%s:%s: Single argument required to query repository data from dnf.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
     local query_repo ; query_repo="$1" && readonly query_repo
 
     dnf5 repo info --all --json "${query_repo}" || return
 }
 
 dnf::assert_repo_disabled () {
-    assert_single_argument "$@" || { printf 'Single argument required for repository disablement assertion.\n' >&2 && return 1 ; }
+    assert_single_argument "$@" || {
+        printf '%s:%s: Single argument required for repository disablement assertion.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
     local repo_id ; repo_id="$1" && readonly repo_id
 
     local repo_json ; repo_json="$(dnf::get_repo_json "${repo_id}")" && readonly repo_json
@@ -36,7 +56,11 @@ dnf::assert_repo_disabled () {
 }
 
 dnf::parse_opts () {
-    assert_multiple_arguments "$@" || { printf 'Destination variables required for parsing dnf installation options.\n' >&2 && return 1 ; }
+    assert_multiple_arguments "$@" || {
+        printf '%s:%s: Destination variables required for parsing dnf installation options.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local -n opts="$1"
     local -n consumed="$2"
@@ -53,11 +77,13 @@ dnf::parse_opts () {
                 opts+=( "$OPTARG" )
                 ;;
             :)
-                printf 'Argument required for option -%s.\n' "$OPTARG" >&2
+                printf '%s:%s: Argument required for option -%s.\n' \
+                "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" "$OPTARG" >&2
                 return 2
                 ;;
             \?)
-                printf 'Unrecognized option: -%s\n' "$OPTARG" >&2
+                printf '%s:%s: Unrecognized option: -%s\n' \
+                "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" "$OPTARG" >&2
                 return 2
                 ;;
         esac
@@ -66,7 +92,11 @@ dnf::parse_opts () {
 }
 
 dnf::passthrough_opts () {
-     assert_multiple_arguments "$@" || { printf 'Destination variables required for dnf installation option passthrough.\n' >&2 && return 1 ; }
+     assert_multiple_arguments "$@" || {
+        printf '%s:%s: Destination variables required for dnf installation opt passthrough.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local -n opts="$1"
     local -n passthrough_opts="$2"
@@ -79,7 +109,11 @@ dnf::passthrough_opts () {
 }
 
 _verify_rpm_installed () {
-     assert_single_argument "$@" || { printf 'Exactly one RPM required for verifying installation.\n' >&2 && return 1 ; }
+     assert_single_argument "$@" || {
+        printf '%s:%s: Exactly one argument required for verifying installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
      local rpm_file ; rpm_file="$1" && readonly rpm_file
 
@@ -91,14 +125,22 @@ _verify_rpm_installed () {
 }
 
 dnf::rpm_install () {
-    assert_arguments_passed "$@" || { printf 'No arguments provided for RPM installation.\n' >&2 && return 1 ; }
+    assert_arguments_passed "$@" || {
+        printf '%s:%s: No arguments provided for RPM installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
     readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
-    assert_single_argument "$@" || { printf 'Exactly one RPM required for dnf installation.\n' >&2 && return 1 ; }
+    assert_single_argument "$@" || {
+        printf '%s:%s: Exactly one argument required for dnf RPM installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local rpm_file ; rpm_file="$1" && readonly rpm_file
 
@@ -110,14 +152,22 @@ dnf::rpm_install () {
 }
 
 dnf::install () {
-    assert_arguments_passed "$@" || { printf 'No arguments provided for dnf package installation.\n' >&2 && return 1 ; }
+    assert_arguments_passed "$@" || {
+        printf '%s:%s: No arguments provided for dnf package installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
     readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
-    assert_arguments_passed "$@" || { printf 'No packages provided for dnf installation.\n' >&2 && return 1 ; }
+    assert_arguments_passed "$@" || {
+        printf '%s:%s: No packages provided for dnf installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local packages ; packages=( "$@" ) && readonly packages
 
@@ -129,7 +179,11 @@ dnf::install () {
 }
 
 dnf::external_install () {
-    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for external repository installation.\n' >&2 && return 1 ; }
+    assert_multiple_arguments "$@" || {
+        printf '%s:%s: Multiple arguments required for external repository installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
@@ -140,11 +194,21 @@ dnf::external_install () {
     dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
     readonly reconstructed_opts
 
-    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for external repository installation.\n' >&2 && return 1 ; }
+    assert_multiple_arguments "$@" || {
+        printf '%s:%s: Multiple arguments required for external repository installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
     local repository ; repository="$1" && readonly repository
     shift
 
-    assert_arguments_passed "$@" || { printf 'No packages provided for external repository installation.\n' >&2 && return 1 ; }
+    assert_arguments_passed "$@" || {
+        printf '%s:%s: No packages provided for external repository installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
     local -a packages ; packages=( "$@" ) && readonly packages
 
     dnf::install -o "--enable-repo=${repository}" "${reconstructed_opts[@]}" "${packages[@]}" || return

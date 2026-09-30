@@ -4,7 +4,12 @@
 set ${CI:+-x} -euo pipefail
 
 _get_copr_repo () {
-    assert_single_argument "$@" || { printf 'Single argument required for Copr repository file installation.\n' >&2 && return 1 ; }
+    assert_single_argument "$@" || {
+        printf '%s:%s: Single argument required for Copr repository setup.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
     local copr ; copr="$1" ; readonly copr
 
     dnf5 -y copr enable \
@@ -15,7 +20,11 @@ _get_copr_repo () {
 }
 
 _copr_install () {
-    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for Copr installation.\n' >&2 && return 1 ; }
+    assert_multiple_arguments "$@" || {
+        printf '%s:%s: Multiple arguments required for Copr installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
@@ -26,7 +35,11 @@ _copr_install () {
     dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
     readonly reconstructed_opts
 
-    assert_multiple_arguments "$@" || { printf 'Multiple arguments required for Copr installation.\n' >&2 && return 1 ; }
+    assert_multiple_arguments "$@" || {
+        printf '%s:%s: Multiple arguments required for Copr installation.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
 
     local copr ; copr="$1" && readonly copr
     shift
