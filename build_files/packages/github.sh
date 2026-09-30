@@ -82,7 +82,7 @@ _install_latest_release () {
 
     trap 'rm -rf -- "$tmp_dir"' RETURN
 
-    local rpm_file ; rpm_file="$( mktemp "${tmp_dir}/rpm-XXXXXX" )" || return \
+    local rpm_file ; rpm_file="$( mktemp "${tmp_dir}/XXXXXX.rpm" )" || return \
     && readonly rpm_file
 
     echo "Downloading RPM with pattern ${pattern} from the latest GitHub release at ${repo}…" && \
