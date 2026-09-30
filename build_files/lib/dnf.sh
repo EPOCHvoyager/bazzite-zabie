@@ -14,20 +14,6 @@ dnf::add_repo () {
         --from-repofile="${repo_file}" || return
 }
 
-dnf::disable_repo () {
-    assert_single_argument "$@" || {
-        printf '%s:%s: Single argument required for disabling repository through dnf.\n' \
-        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
-        return 1
-    }
-
-    local repo_id ; repo_id="$1" && readonly repo_id
-
-    dnf5 config-manager disable \
-        "${repo_id}" || return
-    dnf::assert_repo_disabled "${repo_id}"
-}
-
 dnf::get_repo_json () {
     assert_single_argument "$@" || {
         printf '%s:%s: Single argument required to query repository data from dnf.\n' \
@@ -54,6 +40,20 @@ dnf::assert_repo_disabled () {
 
     jq -e --arg id "$repo_id" \
         'length == 1 and .[0].id == $id and .[0].is_enabled == false' <<< "${repo_json}" || return
+}
+
+dnf::disable_repo () {
+    assert_single_argument "$@" || {
+        printf '%s:%s: Single argument required for disabling repository through dnf.\n' \
+        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
+        return 1
+    }
+
+    local repo_id ; repo_id="$1" && readonly repo_id
+
+    dnf5 config-manager disable \
+        "${repo_id}" || return
+    dnf::assert_repo_disabled "${repo_id}"
 }
 
 dnf::parse_opts () {
