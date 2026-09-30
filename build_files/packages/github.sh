@@ -80,7 +80,7 @@ _install_latest_release () {
     local tmp_dir ; tmp_dir="$( mktemp -d )" || return \
     && readonly tmp_dir
 
-    trap 'rm -rf -- "$tmp_dir"' RETURN
+    trap "rm -rf -- '${tmp_dir}'" RETURN
 
     local rpm_file ; rpm_file="$( mktemp "${tmp_dir}/XXXXXX.rpm" )" || return \
     && readonly rpm_file
