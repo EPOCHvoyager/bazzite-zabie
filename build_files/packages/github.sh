@@ -129,7 +129,9 @@ _install_latest_release () {
 }
 
 main () {
-    :
+    _install_latest_release \
+        "Heroic-Games-Launcher/HeroicGamesLauncher" \
+        "^Heroic-.*-x86_64\.rpm$"
 }
 
 main
