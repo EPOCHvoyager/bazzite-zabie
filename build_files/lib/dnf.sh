@@ -49,7 +49,8 @@ dnf::assert_repo_disabled () {
 
     local repo_id ; repo_id="$1" && readonly repo_id
 
-    local repo_json ; repo_json="$(dnf::get_repo_json "${repo_id}")" && readonly repo_json
+    local repo_json ; repo_json="$( dnf::get_repo_json "${repo_id}" )" || return \
+    && readonly repo_json
 
     jq -e --arg id "$repo_id" \
         'length == 1 and .[0].id == $id and .[0].is_enabled == false' <<< "${repo_json}" || return
