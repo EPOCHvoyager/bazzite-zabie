@@ -8,7 +8,8 @@ systemd::enable_units () {
         return 1
     }
 
-    local units ; units=( "$@" ) && readonly units
+    local units ;  units=( "$@" )  && readonly units
+    local unit
 
     for unit in "${units[@]}"; do
         echo "Enabling unit ${unit}…" && \
