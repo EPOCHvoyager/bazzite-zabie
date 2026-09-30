@@ -78,6 +78,37 @@ dnf::passthrough_opts () {
     done
 }
 
+_verify_rpm_installed () {
+     assert_single_argument "$@" || { printf 'Exactly one RPM required for verifying installation.\n' >&2 && return 1 ; }
+
+     local rpm_file ; rpm_file="$1" && readonly rpm_file
+
+     local package_name ; package_name="$( rpm -qp --qf '%{NAME}\n' "${rpm_file}" )" || return \
+     && readonly package_name
+
+     rpm -V \
+        "${package_name}" || return
+}
+
+dnf::rpm_install () {
+    assert_arguments_passed "$@" || { printf 'No arguments provided for RPM installation.\n' >&2 && return 1 ; }
+
+    local -a dnf_opts ; local opts_consumed
+    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
+    readonly dnf_opts opts_consumed
+    shift "${opts_consumed}"
+
+    assert_single_argument "$@" || { printf 'Exactly one RPM required for dnf installation.\n' >&2 && return 1 ; }
+
+    local rpm_file ; rpm_file="$1" && readonly rpm_file
+
+    dnf5 -y install \
+        "${dnf_opts[@]}" \
+        "${rpm_file}" || return
+
+    _verify_rpm_installed "${rpm_file}" || return
+}
+
 dnf::install () {
     assert_arguments_passed "$@" || { printf 'No arguments provided for dnf package installation.\n' >&2 && return 1 ; }
 
