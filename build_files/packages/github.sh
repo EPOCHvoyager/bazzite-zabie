@@ -43,10 +43,10 @@ _get_asset_data () {
 _get_download_data () {
     assert_argument_count 4 "$@" || { printf 'Two arguments and two destination variables required for obtaining download data.\n' >&2 && return 1 ; }
 
-    local repo              ;   repo="$1"           && readonly repo
-    local pattern           ;   pattern="$2"        && readonly pattern
-    local -n download_url   ;   download_url="$3"
-    local -n asset_digest   ;   asset_digest="$4"
+    local repo                      ;   repo="$1"           && readonly repo
+    local pattern                   ;   pattern="$2"        && readonly pattern
+    local -n output_download_url    ;   output_download_url="$3"
+    local -n output_asset_digest    ;   output_asset_digest="$4"
 
     local api_json ; api_json="$( _retrieve_api_json "${repo}" )" || return \
     && readonly api_json
@@ -54,8 +54,8 @@ _get_download_data () {
     local asset_data ; asset_data="$( _get_asset_data "${api_json}" "${pattern}" )" || return \
     && readonly asset_data
 
-    download_url="$( jq -er '.browser_download_url' <<< "${asset_data}" )"  || return
-    asset_digest="$( jq -er '.digest' <<< "${asset_data}" )"                || return
+    output_download_url="$( jq -er '.browser_download_url' <<< "${asset_data}" )"  || return
+    output_asset_digest="$( jq -er '.digest' <<< "${asset_data}" )"                || return
 }
 
 _verify_download () {
