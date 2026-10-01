@@ -14,7 +14,7 @@ _run_package_scripts () {
     local scripts_ran ;  scripts_ran=0
 
     for script in "${scripts[@]}"; do
-        echo "Running package installation script ${script}…" && \
+        echo "Running package installation script ${script##*/}…" && \
         "$script" && (( ++scripts_ran )) || return
     done
     readonly scripts_ran

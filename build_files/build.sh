@@ -17,7 +17,7 @@ _run_utility_scripts () {
     local -a scripts ; scripts=( "$@" ) && readonly scripts
 
     for script in "${scripts[@]}"; do
-        echo "Running utility script ${script}…" && "$script" || return
+        echo "Running utility script ${script##*/}…" && "$script" || return
     done \
     && echo "Finished running utility scripts."
 }
