@@ -63,7 +63,7 @@ main () {
         "sirlucjan/scx-scheds-cargo" \
         "scx-scheds-git" "scx-tools-git" || return
 
-    # Disable default repos to bar dependency resolution from performing partial Plasma upgrades, in case upstream is behind Fedora.
+    # Disable default repos to prevent dependency resolution from performing partial Plasma upgrades (for example, if the base image is behind Fedora).
     _copr_install \
         -o "--disablerepo=fedora,updates,updates-archive" \
         "infinality/kwin-effects-better-blur-dx" \
