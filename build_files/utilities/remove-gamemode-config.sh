@@ -23,7 +23,7 @@ _remove_default_ini () {
 }
 
 main () {
-    echo "Removing Feral gamemode stock configuration…" && \
+    echo "Removing Feral's gamemode stock configuration…" && \
     _remove_default_ini "${CONFIG_PATH}" || return \
     && echo "Successfully removed."
 }
