@@ -16,8 +16,6 @@ _run_utility_scripts () {
     assert_arguments_passed "$@" || { printf 'No utility scripts provided.\n' >&2 && return 1 ; }
     local -a scripts ; scripts=( "$@" ) && readonly scripts
 
-    echo Running utility scripts…
-
     for script in "${scripts[@]}"; do
         echo "Running utility script ${script}…" && "$script" || return
     done
