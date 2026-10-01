@@ -8,7 +8,7 @@ dnf::add_repo () {
         return 1
     }
 
-    local repo_file ; repo_file="$1" && readonly repo_file
+    local repo_file ;  repo_file="$1"  && readonly repo_file
 
     dnf5 config-manager addrepo \
         --from-repofile="${repo_file}" || return
@@ -21,7 +21,7 @@ dnf::get_repo_json () {
         return 1
     }
 
-    local query_repo ; query_repo="$1" && readonly query_repo
+    local query_repo ;  query_repo="$1"  && readonly query_repo
 
     dnf5 repo info --all --json "${query_repo}" || return
 }
@@ -33,9 +33,9 @@ dnf::assert_repo_disabled () {
         return 1
     }
 
-    local repo_id ; repo_id="$1" && readonly repo_id
+    local repo_id ;  repo_id="$1"  && readonly repo_id
 
-    local repo_json ; repo_json="$( dnf::get_repo_json "${repo_id}" )" || return \
+    local repo_json ;  repo_json="$( dnf::get_repo_json "${repo_id}" )" || return \
     && readonly repo_json
 
     jq -e --arg id "$repo_id" \
@@ -49,7 +49,7 @@ dnf::disable_repo () {
         return 1
     }
 
-    local repo_id ; repo_id="$1" && readonly repo_id
+    local repo_id ;  repo_id="$1"  && readonly repo_id
 
     dnf5 config-manager disable \
         "${repo_id}" || return
@@ -116,9 +116,9 @@ _verify_rpm_installed () {
         return 1
     }
 
-     local rpm_file ; rpm_file="$1" && readonly rpm_file
+     local rpm_file ;  rpm_file="$1"  && readonly rpm_file
 
-     local package_name ; package_name="$( rpm -qp --qf '%{NAME}\n' "${rpm_file}" )" || return \
+     local package_name ;  package_name="$( rpm -qp --qf '%{NAME}\n' "${rpm_file}" )" || return \
      && readonly package_name
 
      rpm -V \
@@ -143,7 +143,7 @@ dnf::rpm_install () {
         return 1
     }
 
-    local rpm_file ; rpm_file="$1" && readonly rpm_file
+    local rpm_file ;  rpm_file="$1"  && readonly rpm_file
 
     dnf5 -y install \
         "${dnf_opts[@]}" \
@@ -170,7 +170,7 @@ dnf::install () {
         return 1
     }
 
-    local packages ; packages=( "$@" ) && readonly packages
+    local packages ;  packages=( "$@" )  && readonly packages
 
     dnf5 -y install \
         "${dnf_opts[@]}" \
@@ -201,7 +201,7 @@ dnf::external_install () {
         return 1
     }
 
-    local repository ; repository="$1" && readonly repository
+    local repository ;  repository="$1"  && readonly repository
     shift
 
     assert_arguments_passed "$@" || {
@@ -210,7 +210,7 @@ dnf::external_install () {
         return 1
     }
 
-    local -a packages ; packages=( "$@" ) && readonly packages
+    local -a packages ;  packages=( "$@" )  && readonly packages
 
     dnf::install -o "--enable-repo=${repository}" "${reconstructed_opts[@]}" "${packages[@]}" || return
 }

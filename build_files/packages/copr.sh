@@ -10,7 +10,7 @@ _get_copr_repo () {
         return 1
     }
 
-    local copr ; copr="$1" ; readonly copr
+    local copr ;  copr="$1"  ; readonly copr
 
     dnf5 -y copr enable \
         "${copr}" || return
@@ -41,9 +41,9 @@ _copr_install () {
         return 1
     }
 
-    local copr ; copr="$1" && readonly copr
+    local copr ;  copr="$1"  && readonly copr
     shift
-    local -a packages ; packages=( "$@" ) && readonly packages
+    local -a packages ;  packages=( "$@" )  && readonly packages
 
     _get_copr_repo "${copr}" || return
 

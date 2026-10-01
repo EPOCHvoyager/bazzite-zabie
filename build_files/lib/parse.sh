@@ -14,7 +14,7 @@ assert_multiple_arguments () {
 
 assert_argument_count () {
     assert_arguments_passed "$@" || return
-    local wanted_args ; wanted_args="$1" && readonly wanted_args
+    local wanted_args ;  wanted_args="$1"  && readonly wanted_args
     shift
     (( $# == wanted_args ))
 }
