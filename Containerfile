@@ -4,7 +4,7 @@ COPY build_files /
 COPY system_files /system_files
 
 # Base Image
-FROM ghcr.io/ublue-os/bazzite:stable
+FROM ghcr.io/ublue-os/bazzite:testing@sha256:bf72d4aa9339b299b50aece73a234eb086a9df70f68aa4ec93cd25366e753f54
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:testing
