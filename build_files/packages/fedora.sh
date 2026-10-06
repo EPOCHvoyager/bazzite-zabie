@@ -7,6 +7,7 @@ set ${CI:+-x} -euo pipefail
 PACKAGES=( \
     "realtime-setup" \
     "irqbalance" \
+    "pipewire-module-filter-chain-lv2" \
     "gamemode" \
     "langpacks-pt_BR" \
 ) && readonly PACKAGES
