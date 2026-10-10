@@ -9,7 +9,8 @@ REPO_ID="terra" && readonly REPO_ID
 PACKAGES=( \
     "ananicy-cpp" \
     "coolercontrol" \
-    "heroic-games-launcher"\
+    "heroic-games-launcher" \
+    "kde-material-you-colors" \
 ) && readonly PACKAGES
 
 UNITS=( \
