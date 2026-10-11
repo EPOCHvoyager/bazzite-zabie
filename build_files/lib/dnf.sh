@@ -144,7 +144,7 @@ dnf::external_install () {
     dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
     readonly reconstructed_opts
 
-    assert_multiple_arguments "$@" || error 'Multiple arguments required for external repository installation.'
+    assert_multiple_arguments "$@" || error 'Repository and package(s) required for external installation.'
 
     local repository ;  repository="$1"  && readonly repository
     shift

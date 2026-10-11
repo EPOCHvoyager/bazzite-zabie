@@ -27,7 +27,7 @@ _copr_install () {
     dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
     readonly reconstructed_opts
 
-    assert_multiple_arguments "$@" || error 'Multiple arguments required for Copr installation.'
+    assert_multiple_arguments "$@" || error 'Copr repository and package(s) required for installation.'
 
     local copr ;  copr="$1"  && readonly copr
     shift

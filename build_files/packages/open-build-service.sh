@@ -32,7 +32,7 @@ _obs_install () {
     dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
     readonly reconstructed_opts
 
-    assert_multiple_arguments "$@" || error 'Multiple arguments required for Open Build installation.'
+    assert_multiple_arguments "$@" || error 'Project and package(s) required for Open Build Service installation.'
 
     local obs_project ;  obs_project="$1"   && readonly obs_project
     shift
