@@ -21,7 +21,7 @@ _get_obs_repo () {
 }
 
 _obs_install () {
-    assert_multiple_arguments "$@" || error 'Multiple arguments required for Open Build installation.'
+    assert_multiple_arguments "$@" || error 'Multiple arguments required for Open Build Service installation.'
 
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
