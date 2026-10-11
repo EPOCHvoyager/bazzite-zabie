@@ -133,7 +133,7 @@ dnf::install () {
 }
 
 dnf::external_install () {
-    assert_multiple_arguments "$@" || error 'Multiple arguments required for external repository installation.'
+    assert_multiple_arguments "$@" || error 'Multiple arguments required for installation from external repository.'
 
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
@@ -149,7 +149,7 @@ dnf::external_install () {
     local repository ;  repository="$1"  && readonly repository
     shift
 
-    assert_arguments_passed "$@" || error 'No packages provided for external repository installation.'
+    assert_arguments_passed "$@" || error 'No packages provided for installation from external repository.'
 
     local -a packages ;  packages=( "$@" )  && readonly packages
 
