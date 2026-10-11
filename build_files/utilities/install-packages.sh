@@ -8,7 +8,8 @@ PACKAGE_DIR="/ctx/packages"  && readonly PACKAGE_DIR
 shopt -s nullglob ;  SCRIPTS=( "${PACKAGE_DIR}"/*.sh )  && readonly SCRIPTS ; shopt -u nullglob
 
 _run_package_scripts () {
-    assert_arguments_passed "$@" || { printf 'No scripts provided for package script execution.\n' >&2 && return 1 ; }
+    assert_arguments_passed "$@" || error 'No scripts provided for package script execution.'
+
     local -a scripts ;  scripts=( "$@" )  && readonly scripts
 
     local scripts_ran ;  scripts_ran=0
@@ -23,7 +24,7 @@ _run_package_scripts () {
 }
 
 _assert_all_scripts_ran () {
-    assert_single_argument "$@" || { printf 'Single argument required to assert execution of all package scripts.\n' >&2 && return 1 ; }
+    assert_single_argument "$@" || error 'Single argument required to assert execution of all package scripts.'
     local scripts_ran ;  scripts_ran=$1  && readonly scripts_ran
 
     local script_count ;  script_count=${#SCRIPTS[@]}  && readonly script_count

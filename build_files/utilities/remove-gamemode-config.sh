@@ -6,11 +6,7 @@ set ${CI:+-x} -euo pipefail
 CONFIG_PATH="/usr/share/gamemode/gamemode.ini"
 
 _remove_default_ini () {
-    assert_single_argument "$@" || {
-        printf '%s:%s: Single argument required to remove default gamemode configuration.\n' \
-        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
-        return 1
-    }
+    assert_single_argument "$@" || error 'Single argument required to remove default gamemode configuration.'
 
     local ini_path ;  ini_path="$1"  && readonly ini_path
 

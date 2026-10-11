@@ -13,7 +13,8 @@ UTILITY_SCRIPTS=( \
 ) && readonly UTILITY_SCRIPTS
 
 _run_utility_scripts () {
-    assert_arguments_passed "$@" || { printf 'No utility scripts provided.\n' >&2 && return 1 ; }
+    assert_arguments_passed "$@" || error 'No utility scripts provided.'
+
     local -a scripts ; scripts=( "$@" ) && readonly scripts
 
     for script in "${scripts[@]}"; do

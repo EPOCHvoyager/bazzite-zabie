@@ -13,11 +13,7 @@ TROUBLESHOOTING_BIN="/opt/Mullvad VPN/resources/mullvad-problem-report"     && r
 SYMLINK_LOCATION="/usr/bin/mullvad-problem-report"                          && readonly SYMLINK_LOCATION
 
 _add_permissions () {
-    assert_single_argument "$@" || {
-        printf '%s:%s: Single argument required for adding permissions.\n' \
-        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
-        return 1
-    }
+    assert_single_argument "$@" || error 'Single argument required for adding permissions.'
 
     local target ;  target="$1"  && readonly target
 
@@ -30,11 +26,7 @@ _add_permissions () {
 }
 
 _add_symlink () {
-    assert_argument_count 2 "$@" || {
-        printf '%s:%s: Two arguments required for symlink creation.\n' \
-        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
-        return 1
-    }
+    assert_argument_count 2 "$@" || error 'Two arguments required for symlink creation.'
 
     local symlink_target    ;   symlink_target="$1"    && readonly symlink_target
     local symlink           ;   symlink="$2"           && readonly symlink
