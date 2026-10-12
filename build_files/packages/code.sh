@@ -13,11 +13,7 @@ REPO_ID="${PACKAGE}"                                            && readonly REPO
 REPO_NAME="Visual Studio Code"                                  && readonly REPO_NAME
 
 _import_key () {
-    assert_single_argument "$@" || {
-        printf '%s:%s: Single argument required for importing repository key.\n' \
-        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
-        return 1
-    }
+    assert_single_argument "$@" || { error 'Single argument required for importing repository key.' ; return 1 ; }
 
     local repo_key ; repo_key="$1" && readonly repo_key
 
@@ -25,11 +21,7 @@ _import_key () {
 }
 
 _install_repo () {
-    assert_argument_count 5 "$@" || {
-        printf '%s:%s: Five arguments required for installing Visual Studio Code repository.\n' \
-        "${BASH_SOURCE[0]##*/}" "${FUNCNAME[0]}" >&2
-        return 1
-    }
+    assert_argument_count 5 "$@" || { error 'Five arguments required for installing Visual Studio Code repository.' ; return 1 ; }
 
     local install_path  ;   install_path="$1"     && readonly install_path
     local repo_id       ;   repo_id="$2"          && readonly repo_id
