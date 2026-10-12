@@ -3,7 +3,7 @@
 set ${CI:+-x} -euo pipefail
 
 LIB_DIR="/ctx/lib" && readonly LIB_DIR ; export LIB_DIR
-. "${LIB_DIR}/parse.sh"
+. "${LIB_DIR}/error.sh"
 
 UTILITY_DIR="/ctx/utilities" && readonly UTILITY_DIR
 UTILITY_SCRIPTS=( \

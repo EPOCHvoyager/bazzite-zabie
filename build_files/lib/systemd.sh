@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-. "${LIB_DIR}/parse.sh"
+. "${LIB_DIR}/error.sh"
 
 systemd::enable_units () {
     assert_arguments_passed "$@" || error 'No arguments provided for enabling service units.'

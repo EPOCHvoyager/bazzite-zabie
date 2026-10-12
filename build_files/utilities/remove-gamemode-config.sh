@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-. "${LIB_DIR}/parse.sh"
+. "${LIB_DIR}/error.sh"
 
 set ${CI:+-x} -euo pipefail
 
