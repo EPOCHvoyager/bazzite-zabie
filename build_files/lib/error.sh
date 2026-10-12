@@ -10,7 +10,7 @@ error () {
 
     local error_msg ;  error_msg="$1"  ; readonly error_msg
 
-    printf '%s:%s: %s.\n' \
+    printf '%s:%s: %s\n' \
     "${BASH_SOURCE[1]##*/}" \
     "${FUNCNAME[1]}" \
     "${error_msg}" \
