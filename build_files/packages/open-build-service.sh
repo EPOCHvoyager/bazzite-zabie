@@ -4,7 +4,7 @@
 set ${CI:+-x} -euo pipefail
 
 _get_obs_repo () {
-    assert_single_argument "$@" || error 'Single argument required for Open Build Service repository setup.'
+    assert_single_argument "$@" || { error 'Single argument required for Open Build Service repository setup.' ; return 1 ; }
 
     local obs_project ;  obs_project="$1"  && readonly obs_project
 
@@ -21,7 +21,7 @@ _get_obs_repo () {
 }
 
 _obs_install () {
-    assert_multiple_arguments "$@" || error 'Multiple arguments required for Open Build Service installation.'
+    assert_multiple_arguments "$@" || { error 'Multiple arguments required for Open Build Service installation.' ; return 1 ; }
 
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
@@ -32,7 +32,7 @@ _obs_install () {
     dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
     readonly reconstructed_opts
 
-    assert_multiple_arguments "$@" || error 'Project and package(s) required for Open Build Service installation.'
+    assert_multiple_arguments "$@" || { error 'Project and package(s) required for Open Build Service installation.' ; return 1 ; }
 
     local obs_project ;  obs_project="$1"   && readonly obs_project
     shift

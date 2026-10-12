@@ -17,6 +17,4 @@ error () {
     "${FUNCNAME[1]}" \
     "${error_msg}" \
     >&2
-
-    return 1
 }

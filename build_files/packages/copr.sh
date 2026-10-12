@@ -4,7 +4,7 @@
 set ${CI:+-x} -euo pipefail
 
 _get_copr_repo () {
-    assert_single_argument "$@" || error 'Single argument required for Copr repository setup.'
+    assert_single_argument "$@" || { error 'Single argument required for Copr repository setup.' ; return 1 ; }
 
     local copr ;  copr="$1"  ; readonly copr
 
@@ -16,7 +16,7 @@ _get_copr_repo () {
 }
 
 _copr_install () {
-    assert_multiple_arguments "$@" || error 'Multiple arguments required for Copr installation.'
+    assert_multiple_arguments "$@" || { error 'Multiple arguments required for Copr installation.' ; return 1 ; }
 
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
@@ -27,7 +27,7 @@ _copr_install () {
     dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
     readonly reconstructed_opts
 
-    assert_multiple_arguments "$@" || error 'Copr repository and package(s) required for installation.'
+    assert_multiple_arguments "$@" || { error 'Copr repository and package(s) required for installation.' ; return 1 ; }
 
     local copr ;  copr="$1"  && readonly copr
     shift

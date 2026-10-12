@@ -6,7 +6,7 @@ set ${CI:+-x} -euo pipefail
 SYSTEM_FILES_PATH="/ctx/system_files"
 
 _copy_to_root () {
-    assert_single_argument "$@" || error 'Single argument required for root file copy.'
+    assert_single_argument "$@" || { error 'Single argument required for root file copy.' ; return 1 ; }
 
     local source_path ;  source_path="$1"  && readonly source_path
     cp -avf "${source_path}"/. / || return

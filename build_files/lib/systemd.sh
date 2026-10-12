@@ -2,7 +2,7 @@
 . "${LIB_DIR}/error.sh"
 
 systemd::enable_units () {
-    assert_arguments_passed "$@" || error 'No arguments provided for enabling service units.'
+    assert_arguments_passed "$@" || { error 'No arguments provided for enabling service units.' ; return 1 ; }
 
     local units ;  units=( "$@" )  && readonly units
     local unit

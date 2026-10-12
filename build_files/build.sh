@@ -13,7 +13,7 @@ UTILITY_SCRIPTS=( \
 ) && readonly UTILITY_SCRIPTS
 
 _run_utility_scripts () {
-    assert_arguments_passed "$@" || error 'No utility scripts provided.'
+    assert_arguments_passed "$@" || { error 'No utility scripts provided.' ; return 1 ; }
 
     local -a scripts ; scripts=( "$@" ) && readonly scripts
 
