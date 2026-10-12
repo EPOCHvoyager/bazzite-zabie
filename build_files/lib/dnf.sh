@@ -121,7 +121,7 @@ dnf::install () {
     readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
-    assert_arguments_passed "$@" || error 'No packages provided for dnf installation.'
+    assert_arguments_passed "$@" || { error 'No packages provided for dnf installation.' ; return 1 ; }
 
     local packages ;  packages=( "$@" )  && readonly packages
 
