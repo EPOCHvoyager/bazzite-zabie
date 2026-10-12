@@ -20,7 +20,6 @@ _add_permissions () {
     echo "Adding permissions…" && \
     chmod u+s "${target}" || return
 
-
     [[ $( stat --format='%a' "${target}" ) = "4755" ]] \
     && echo "Successfully added." || return
 }
