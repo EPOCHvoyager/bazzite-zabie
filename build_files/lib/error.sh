@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 . "${LIB_DIR}/parse.sh"
 
-set ${CI:+-x} -euo pipefail
-
 error () {
     assert_single_argument "$@" || {
         printf '%s:%s: Error message required.\n' \
