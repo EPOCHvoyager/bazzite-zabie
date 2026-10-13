@@ -15,8 +15,8 @@ PACKAGES=( \
 ) && readonly PACKAGES
 
 UNITS=( \
-"ananicy-cpp.service" \
-"coolercontrold.service" \
+    "ananicy-cpp.service" \
+    "coolercontrold.service" \
 ) && readonly UNITS
 
 main () {
