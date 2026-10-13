@@ -43,11 +43,11 @@ dnf::disable_repo () {
 dnf::parse_opts () {
     assert_multiple_arguments "$@" || { error 'Destination variables required for parsing dnf installation options.' ; return 1 ; }
 
-    local -n opt_args="$1"
-    local -n consumed="$2"
+    local -n opt_args_ref="$1"
+    local -n consumed_ref="$2"
     shift 2
 
-    opt_args=()
+    opt_args_ref=()
     local option
     local OPTARG
 
@@ -55,7 +55,7 @@ dnf::parse_opts () {
     while getopts ":o:" option; do
         case "$option" in
             o)
-                opt_args+=( "$OPTARG" )
+                opt_args_ref+=( "$OPTARG" )
                 ;;
             :)
                 printf '%s:%s: Argument required for option -%s.\n' \
@@ -69,19 +69,19 @@ dnf::parse_opts () {
                 ;;
         esac
     done
-    consumed="$((OPTIND - 1))"
+    consumed_ref="$((OPTIND - 1))"
 }
 
 dnf::passthrough_opts () {
     assert_multiple_arguments "$@" || { error 'Destination variables required for dnf installation opt passthrough.' ; return 1 ; }
 
-    local -n opts="$1"
-    local -n passthrough_opts="$2"
+    local -n opts_ref="$1"
+    local -n passthrough_opts_ref="$2"
 
-    passthrough_opts=()
+    passthrough_opts_ref=()
     local opt
-    for opt in "${opts[@]}"; do
-        passthrough_opts+=( -o "$opt" )
+    for opt in "${opts_ref[@]}"; do
+        passthrough_opts_ref+=( -o "$opt" )
     done
 }
 
