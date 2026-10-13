@@ -3,6 +3,15 @@
 
 set ${CI:+-x} -euo pipefail
 
+_get_copr_id () {
+    assert_argument_count 2 "$@" || { error 'Input and output variables required to convert Copr repository ID.' ; return 1 ; }
+
+    local -n copr_ref="$1"
+    local -n copr_id_ref="$2"
+
+    copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}"
+}
+
 _get_copr_repo () {
     assert_single_argument "$@" || { error 'Single argument required for Copr repository setup.' ; return 1 ; }
 
@@ -11,7 +20,9 @@ _get_copr_repo () {
     dnf5 -y copr enable \
         "${copr}" || return
 
-    local copr_id ; copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}" ; readonly copr_id
+    local copr_id ;  _get_copr_id "copr" "copr_id" || return
+    readonly copr_id
+
     dnf::disable_repo "${copr_id}" || return
 }
 
@@ -35,7 +46,9 @@ _copr_install () {
 
     _get_copr_repo "${copr}" || return
 
-    local copr_id ; copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}" && readonly copr_id
+    local copr_id ;  _get_copr_id "copr" "copr_id" || return
+    readonly copr_id
+
     echo "Installing packages from Copr ${copr}…" && \
     dnf::external_install \
         "${reconstructed_opts[@]}" \

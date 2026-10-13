@@ -3,6 +3,15 @@
 
 set ${CI:+-x} -euo pipefail
 
+_get_obs_repo_id () {
+    assert_argument_count 2 "$@" || { error 'Input and output variables required to convert Open Build Service repository ID.' ; return 1 ; }
+
+    local -n obs_project_ref="$1"
+    local -n obs_repo_id_ref="$2"
+
+    obs_repo_id_ref="${obs_project_ref//[!0-9a-zA-Z.-]/_}"
+}
+
 _get_obs_repo () {
     assert_single_argument "$@" || { error 'Single argument required for Open Build Service repository setup.' ; return 1 ; }
 
@@ -15,7 +24,8 @@ _get_obs_repo () {
 
     dnf::add_repo "${obs_repo}" || return
 
-    local obs_repo_id ;  obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/_}"  && readonly obs_repo_id
+    local obs_repo_id ;  _get_obs_repo_id "obs_project" "obs_repo_id" || return
+    readonly obs_repo_id
 
     dnf::disable_repo "${obs_repo_id}" || return
 }
@@ -40,9 +50,10 @@ _obs_install () {
 
     _get_obs_repo "${obs_project}" || return
 
-    local obs_repo_id ;  obs_repo_id="${obs_project//[!0-9a-zA-Z.-]/_}"  && readonly obs_repo_id
-    echo "Installing packages from Open Build Service project ${obs_project}…" && \
+    local obs_repo_id ;  _get_obs_repo_id "obs_project" "obs_repo_id" || return
+    readonly obs_repo_id
 
+    echo "Installing packages from Open Build Service project ${obs_project}…" && \
     dnf::external_install \
         "${reconstructed_opts[@]}" \
         "${obs_repo_id}" \
