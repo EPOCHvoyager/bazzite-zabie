@@ -116,6 +116,7 @@ dnf::rpm_install () {
 
 dnf::install () {
     assert_arguments_passed "$@" || { error 'No arguments provided for dnf package installation.' ; return 1 ; }
+
     local -a dnf_opts ; local opts_consumed
     dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
     readonly dnf_opts opts_consumed
