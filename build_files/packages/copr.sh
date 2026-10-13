@@ -3,7 +3,7 @@
 
 set ${CI:+-x} -euo pipefail
 
-_get_copr_id () {
+_convert_copr_id () {
     assert_argument_count 2 "$@" || { error 'Input and output variables required to convert Copr repository ID.' ; return 1 ; }
 
     local -n copr_ref="$1"
@@ -20,7 +20,7 @@ _get_copr_repo () {
     dnf5 -y copr enable \
         "${copr}" || return
 
-    local copr_id ;  _get_copr_id "copr" "copr_id" || return
+    local copr_id ;  _convert_copr_id "copr" "copr_id" || return
     readonly copr_id
 
     dnf::disable_repo "${copr_id}" || return
@@ -46,7 +46,7 @@ _copr_install () {
 
     _get_copr_repo "${copr}" || return
 
-    local copr_id ;  _get_copr_id "copr" "copr_id" || return
+    local copr_id ;  _convert_copr_id "copr" "copr_id" || return
     readonly copr_id
 
     echo "Installing packages from Copr ${copr}…" && \

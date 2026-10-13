@@ -3,7 +3,7 @@
 
 set ${CI:+-x} -euo pipefail
 
-_get_obs_repo_id () {
+_convert_obs_id () {
     assert_argument_count 2 "$@" || { error 'Input and output variables required to convert Open Build Service repository ID.' ; return 1 ; }
 
     local -n obs_project_ref="$1"
@@ -24,7 +24,7 @@ _get_obs_repo () {
 
     dnf::add_repo "${obs_repo}" || return
 
-    local obs_repo_id ;  _get_obs_repo_id "obs_project" "obs_repo_id" || return
+    local obs_repo_id ;  _convert_obs_id "obs_project" "obs_repo_id" || return
     readonly obs_repo_id
 
     dnf::disable_repo "${obs_repo_id}" || return
@@ -50,7 +50,7 @@ _obs_install () {
 
     _get_obs_repo "${obs_project}" || return
 
-    local obs_repo_id ;  _get_obs_repo_id "obs_project" "obs_repo_id" || return
+    local obs_repo_id ;  _convert_obs_id "obs_project" "obs_repo_id" || return
     readonly obs_repo_id
 
     echo "Installing packages from Open Build Service project ${obs_project}…" && \
