@@ -9,7 +9,7 @@ _convert_copr_id () {
     local -n copr_ref="$1"
     local -n copr_id_ref="$2"
 
-    copr_id="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}"
+    copr_id_ref="copr:copr.fedorainfracloud.org:${copr//[!0-9a-zA-Z.-]/:}"
 }
 
 _get_copr_repo () {
