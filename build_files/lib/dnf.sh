@@ -23,7 +23,7 @@ dnf::assert_repo_disabled () {
 
     local repo_id ;  repo_id="$1"  && readonly repo_id
 
-    local repo_json ;  repo_json="$( dnf::get_repo_json "${repo_id}" )" || return \
+    local repo_json ;  repo_json="$( dnf::get_repo_json "${repo_id}" )" || return  \
     && readonly repo_json
 
     jq -e --arg id "$repo_id" \
@@ -89,7 +89,7 @@ _verify_rpm_installed () {
     assert_single_argument "$@" || { error 'Exactly one argument required for verifying installation.' ; return 1 ; }
 
     local rpm_file ;  rpm_file="$1"  && readonly rpm_file
-    local package_name ;  package_name="$( rpm -qp --qf '%{NAME}\n' "${rpm_file}" )" || return \
+    local package_name ;  package_name="$( rpm -qp --qf '%{NAME}\n' "${rpm_file}" )" || return  \
     && readonly package_name
 
     rpm -V \
@@ -100,8 +100,8 @@ dnf::rpm_install () {
     assert_arguments_passed "$@" || { error 'No arguments provided for RPM installation.' ; return 1 ; }
 
     local -a dnf_opts ; local opts_consumed
-    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
-    readonly dnf_opts opts_consumed
+    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return  \
+    && readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
     assert_single_argument "$@" || { error 'Exactly one argument required for dnf RPM installation.' ; return 1 ; }
@@ -118,8 +118,8 @@ dnf::install () {
     assert_arguments_passed "$@" || { error 'No arguments provided for dnf package installation.' ; return 1 ; }
 
     local -a dnf_opts ; local opts_consumed
-    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
-    readonly dnf_opts opts_consumed
+    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return  \
+    && readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
     assert_arguments_passed "$@" || { error 'No packages provided for dnf installation.' ; return 1 ; }
@@ -137,13 +137,13 @@ dnf::external_install () {
     assert_multiple_arguments "$@" || { error 'Multiple arguments required for installation from external repository.' ; return 1 ; }
 
     local -a dnf_opts ; local opts_consumed
-    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
-    readonly dnf_opts opts_consumed
+    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return  \
+    && readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
     local -a reconstructed_opts
-    dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
-    readonly reconstructed_opts
+    dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return  \
+    && readonly reconstructed_opts
 
     assert_multiple_arguments "$@" || { error 'Repository and package(s) required for external installation.' ; return 1 ; }
 

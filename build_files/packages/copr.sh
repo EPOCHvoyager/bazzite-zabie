@@ -20,8 +20,8 @@ _get_copr_repo () {
     dnf5 -y copr enable \
         "${copr}" || return
 
-    local copr_id ;  _convert_copr_id "copr" "copr_id" || return
-    readonly copr_id
+    local copr_id ;  _convert_copr_id "copr" "copr_id" || return  \
+    && readonly copr_id
 
     dnf::disable_repo "${copr_id}" || return
 }
@@ -30,13 +30,13 @@ _copr_install () {
     assert_multiple_arguments "$@" || { error 'Multiple arguments required for Copr installation.' ; return 1 ; }
 
     local -a dnf_opts ; local opts_consumed
-    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return
-    readonly dnf_opts opts_consumed
+    dnf::parse_opts "dnf_opts" "opts_consumed" "$@" || return  \
+    && readonly dnf_opts opts_consumed
     shift "${opts_consumed}"
 
     local -a reconstructed_opts
-    dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return
-    readonly reconstructed_opts
+    dnf::passthrough_opts "dnf_opts" "reconstructed_opts" || return  \
+    && readonly reconstructed_opts
 
     assert_multiple_arguments "$@" || { error 'Copr repository and package(s) required for installation.' ; return 1 ; }
 
@@ -46,8 +46,8 @@ _copr_install () {
 
     _get_copr_repo "${copr}" || return
 
-    local copr_id ;  _convert_copr_id "copr" "copr_id" || return
-    readonly copr_id
+    local copr_id ;  _convert_copr_id "copr" "copr_id" || return  \
+    && readonly copr_id
 
     echo "Installing packages from Copr ${copr}…" && \
     dnf::external_install \

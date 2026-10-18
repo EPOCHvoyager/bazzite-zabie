@@ -15,7 +15,7 @@ REPO_NAME="Visual Studio Code"                                  && readonly REPO
 _import_key () {
     assert_single_argument "$@" || { error 'Single argument required for importing repository key.' ; return 1 ; }
 
-    local repo_key ; repo_key="$1" && readonly repo_key
+    local repo_key ;  repo_key="$1"  && readonly repo_key
 
     rpm --import "${repo_key}" || return
 }
