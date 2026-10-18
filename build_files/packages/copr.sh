@@ -58,11 +58,7 @@ _copr_install () {
 }
 
 main () {
-    # Disable default repos to prevent dependency resolution from performing partial Plasma upgrades (for example, if the base image is behind Fedora).
-    _copr_install \
-        -o "--disablerepo=fedora,updates,updates-archive" \
-        "infinality/kwin-effects-better-blur-dx" \
-        "kwin-effects-better-blur-dx" || return
+    :
 }
 
 main
