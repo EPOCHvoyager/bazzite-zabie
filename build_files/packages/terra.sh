@@ -4,7 +4,7 @@
 
 set ${CI:+-x} -euo pipefail
 
-REPO_ID="terra" && readonly REPO_ID
+REPO_ID="terra"  && readonly REPO_ID
 
 PACKAGES=( \
     "ananicy-cpp" \
@@ -12,12 +12,12 @@ PACKAGES=( \
     "heroic-games-launcher" \
     #"kde-material-you-colors" \
     "klassy" \
-) && readonly PACKAGES
+)  && readonly PACKAGES
 
 UNITS=( \
     "ananicy-cpp.service" \
     "coolercontrold.service" \
-) && readonly UNITS
+)  && readonly UNITS
 
 main () {
     echo "Installing packages from Terra…" && \

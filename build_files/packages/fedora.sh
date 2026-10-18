@@ -9,13 +9,13 @@ PACKAGES=( \
     "irqbalance" \
     "gamemode" \
     "langpacks-pt_BR" \
-) && readonly PACKAGES
+)  && readonly PACKAGES
 
 UNITS=( \
     "irqbalance.service" \
     "realtime-setup.service" \
     "realtime-entsk.service" \
-) && readonly UNITS
+)  && readonly UNITS
 
 main () {
     echo "Installing packages from Fedora…" && \
