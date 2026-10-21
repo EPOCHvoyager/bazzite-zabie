@@ -8,6 +8,10 @@ PACKAGES=( \
     "realtime-setup" \
     "irqbalance" \
     "gamemode" \
+    "atkinson-hyperlegible-next-fonts" \
+    "ibm-plex-sans-fonts" \
+    "ibm-plex-mono-fonts" \
+    "adobe-source-sans-pro-fonts" \
     "langpacks-pt_BR" \
 )  && readonly PACKAGES
 
