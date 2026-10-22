@@ -3,7 +3,7 @@
 
 set ${CI:+-x} -euo pipefail
 
-CONFIG_PATH="/usr/share/gamemode/gamemode.ini"
+CONFIG_PATH="/usr/share/gamemode/gamemode.ini"  && readonly CONFIG_PATH
 
 _remove_default_ini () {
     assert_single_argument "$@" || { error 'Single argument required to remove default gamemode configuration.' ; return 1 ; }
