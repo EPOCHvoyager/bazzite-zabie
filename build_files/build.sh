@@ -9,6 +9,7 @@ UTILITY_DIR="/ctx/utilities"  && readonly UTILITY_DIR
 UTILITY_SCRIPTS=( \
     "${UTILITY_DIR}/copy-files.sh" \
     "${UTILITY_DIR}/install-packages.sh" \
+    "${UTILITY_DIR}/disable-krunner.sh"
     "${UTILITY_DIR}/remove-gamemode-config.sh" \
 )  && readonly UTILITY_SCRIPTS
 
