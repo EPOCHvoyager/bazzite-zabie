@@ -15,7 +15,7 @@ FONT_PACKAGES=( \
     "atkinson-hyperlegible-next-fonts" \
     "ibm-plex-sans-fonts" \
     "ibm-plex-mono-fonts" \
-    "adobe-source-sans-pro-fonts" \
+    "rsms-inter-fonts" \
 )  && readonly FONT_PACKAGES
 
 UNITS=( \
