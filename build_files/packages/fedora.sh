@@ -8,6 +8,7 @@ PACKAGES=( \
     "realtime-setup" \
     "irqbalance" \
     "gamemode" \
+    "dotnet-sdk-10.0" \
     "langpacks-pt_BR" \
 )  && readonly PACKAGES
 
