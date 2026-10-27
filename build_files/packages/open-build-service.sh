@@ -10,7 +10,7 @@ _get_repo_url () {
     local -n obs_repo_url_ref="$2"
 
     #local release ;  release="$(rpm -E '%fedora')" || return  \
-    local release ;  release="Rawhide"  && readonly release
+    local release ;  release="44"  && readonly release
 
     obs_repo_url_ref="https://download.opensuse.org/repositories/${obs_project_ref}/Fedora_${release}/${obs_project_ref}.repo"
 }
