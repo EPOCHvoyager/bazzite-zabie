@@ -75,6 +75,10 @@ main () {
     _obs_install \
         "home:luisbocanegra" \
         "plasma-panel-colorizer" "plasma-panel-spacer-extended" || return
+
+    _obs_install
+        "home:paulmcauley" \
+        "klassy" || return
 }
 
 main
