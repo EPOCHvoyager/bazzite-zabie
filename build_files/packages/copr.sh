@@ -60,7 +60,7 @@ _copr_install () {
 main () {
     _copr_install \
         "scujas/plasma-applet-appgrid" \
-        "plasma-applet-appgrid"
+        "plasma-applet-appgrid" || return
 }
 
 main
