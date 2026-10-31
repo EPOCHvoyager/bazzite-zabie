@@ -76,7 +76,7 @@ main () {
         "home:luisbocanegra" \
         "plasma-panel-colorizer" "plasma-panel-spacer-extended" || return
 
-    _obs_install
+    _obs_install \
         "home:paulmcauley" \
         "klassy" || return
 }
