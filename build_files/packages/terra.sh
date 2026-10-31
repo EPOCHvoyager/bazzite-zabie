@@ -11,7 +11,6 @@ PACKAGES=( \
     "coolercontrol" \
     "heroic-games-launcher" \
     "kde-material-you-colors" \
-    "plasma6-applet-appgrid" \
     "klassy" \
 )  && readonly PACKAGES
 
