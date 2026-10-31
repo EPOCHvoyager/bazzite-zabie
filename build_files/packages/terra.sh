@@ -10,7 +10,7 @@ PACKAGES=( \
     "ananicy-cpp" \
     "coolercontrol" \
     "heroic-games-launcher" \
-    #"kde-material-you-colors" \
+    "kde-material-you-colors" \
     "plasma6-applet-appgrid" \
     "klassy" \
 )  && readonly PACKAGES
