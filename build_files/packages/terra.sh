@@ -8,7 +8,6 @@ REPO_ID="terra"  && readonly REPO_ID
 
 PACKAGES=( \
     "ananicy-cpp" \
-    "coolercontrol" \
     "heroic-games-launcher" \
     "kde-material-you-colors" \
     "klassy" \
@@ -16,7 +15,6 @@ PACKAGES=( \
 
 UNITS=( \
     "ananicy-cpp.service" \
-    "coolercontrold.service" \
 )  && readonly UNITS
 
 main () {
