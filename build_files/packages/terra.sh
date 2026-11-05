@@ -10,6 +10,7 @@ PACKAGES=( \
     "ananicy-cpp" \
     "heroic-games-launcher" \
     #"kde-material-you-colors" \
+    "klassy" \
 )  && readonly PACKAGES
 
 UNITS=( \
