@@ -61,6 +61,10 @@ main () {
     _copr_install \
         "scujas/plasma-applet-appgrid" \
         "plasma-applet-appgrid" || return
+
+    _copr_install \
+        "infinality/kwin-effects-better-blur-dx" \
+        "kwin-effects-better-blur-dx" || return
 }
 
 main
