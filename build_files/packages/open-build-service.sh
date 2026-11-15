@@ -74,7 +74,7 @@ _obs_install () {
 main () {
     _obs_install \
         "home:luisbocanegra" \
-        "plasma-panel-colorizer" "plasma-panel-spacer-extended" || return
+        "plasma-panel-colorizer" "plasma-panel-spacer-extended" "kde-material-you-colors" || return
 }
 
 main

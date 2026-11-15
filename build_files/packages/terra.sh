@@ -9,7 +9,6 @@ REPO_ID="terra"  && readonly REPO_ID
 PACKAGES=( \
     "ananicy-cpp" \
     "heroic-games-launcher" \
-    "kde-material-you-colors" \
     "plasma6-applet-appgrid" \
     "klassy" \
 )  && readonly PACKAGES
