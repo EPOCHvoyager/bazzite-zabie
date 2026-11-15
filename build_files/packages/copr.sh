@@ -59,6 +59,7 @@ _copr_install () {
 
 main () {
     _copr_install \
+        -o "--disablerepo=fedora,updates,updates-archive" \
         "infinality/kwin-effects-better-blur-dx" \
         "kwin-effects-better-blur-dx" || return
 }
